@@ -1,0 +1,34 @@
+<a href="/dashboard">&larr; Back To radBlok</a>
+<script src="/public/ckeditor/ckeditor.js"></script>
+<div class="admin-title">
+    <h2>View / Edit Process</h2>
+</div>
+
+<form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST">
+    <input type="submit" value="Delete" class="btn-delete btn">
+</form>
+
+<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST">
+
+    <label for="title"><b>Title</b></label>
+    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>">
+
+    <label for="body"><b>Content</b></label>
+    <textarea id="editor" name="body" cols="50" rows="10"><%- data.body %></textarea>
+
+    <input type="submit" value="Update" class="btn">
+
+</form>
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+          ckfinder: {
+          // CKFinder configuration options
+          uploadUrl: '/upload-file' // Set the URL to your Express.js route
+        }
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+  </script>

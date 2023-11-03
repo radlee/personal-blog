@@ -1,0 +1,36 @@
+
+<div class="author">
+    <!-- <h1 class="author_heading">Standard Operating Procedures</h1> -->
+    <h1 class="author_heading">Hi, I'm Lolito</h1>
+    <p class="author__body">Agile Full Stack MERN 👨‍💻 </p>
+</div>
+
+<img src="/img/hero-image2.webp" alt="gscc" class="hero-image" width="981" height="528">
+
+<section class="articles">
+    <br />
+    <hr />
+    <h3 class="articles__heading"><span >Updated and Useful Information</span></h3>
+    <hr />
+    <ul class="article-ul">
+
+        <% data.forEach(post => { %>
+            <li>
+                 <a href="/post/<%= post._id %>">
+                     <span><%= post.title %></span>
+                     <span class="article-list__date"><%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %></span>
+                 </a>
+            </li>
+        <% }) %>
+           
+    </ul>
+
+    <% if ( nextPage !== null ) { %> 
+        <a href='/?page=<%= nextPage %>' class='pagination'>&lt; View Older Posts</a>
+    <% } %>
+
+    <% if (current > 1) { %>
+        <a href="/?page=<%= current - 1 %>" class="pagination pagination-right">View Newer Posts &gt;</a>
+    <% } %>
+
+</section>

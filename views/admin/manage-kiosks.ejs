@@ -1,0 +1,46 @@
+<style>
+    table, td, th {border: 1px solid black; border-collapse: collapse;}
+  </style>
+  
+  <div class="banner-info" align="center">
+      <span><label>Customer Name </label></span>
+      <span><input id="inputCustomerName" type="text" class="text-center" required="" placeholder="Enter Customer Name"></span><br>
+      <span><label>Customer Address </label></span>
+      <span><input id="inputCustomerAddress" type="text" class="text-center" required=""></span><br>
+      <span><label>Customer telephone </label></span>
+      <span><input id="inputCustomerTelephone" type="text" class="text-center" required=""></span><br>
+  </div>
+  <div class="logo">
+      <input type="button" onClick="insertData()" value="Add entry">
+  </div>
+  <script language="javascript">
+      function insertData() {
+          var name = document.getElementById("inputCustomerName").value;
+          var address = document.getElementById("inputCustomerAddress").value;
+          var telephone = document.getElementById("inputCustomerTelephone").value;
+          document.getElementById("insertionPoint").innerHTML += "<tr><td>" + name + "</td><td>" + address + "</td><td>" + telephone + "</td></tr>";
+        
+          // The below part is to clear the values after the entry is added.
+          document.getElementById("inputCustomerName").value = "";
+          document.getElementById("inputCustomerAddress").value = "";
+          document.getElementById("inputCustomerTelephone").value = "";
+      }
+  </script>
+  <table id="t1">
+      <caption>Customer Table</caption>
+      <colgroup>
+          <col span="2" class="c2">
+          <col>
+          <col class="c1">
+      </colgroup>
+      <thead>
+          <tr>
+              <th>Customer Name</th>
+              <th>Customer Address</th>
+              <th>Customer Telephone</th>
+          </tr>
+      </thead>
+      <tbody id="insertionPoint">
+        
+      </tbody>
+  </table>

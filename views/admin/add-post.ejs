@@ -1,0 +1,30 @@
+<a href="/dashboard">&larr; Back</a>
+
+<div class="admin-title">
+    <h2>Add New Process</h2>
+</div>
+<script src="/public/ckeditor/ckeditor.js"></script>
+<form action="/add-post" method="POST">
+
+    <label for="title"><b>Title</b></label>
+    <input type="text" placeholder="Post Title" name="title">
+
+    <label for="body"><b>Content</b></label>
+    <textarea id="editor" name="body" cols="50" rows="10"></textarea>
+
+    <input type="submit" value="Add" class="btn">
+
+</form>
+
+<script>
+  ClassicEditor
+      .create( document.querySelector( '#editor' ), {
+        ckfinder: {
+        // CKFinder configuration options
+        uploadUrl: '/upload-file' // Set the URL to your Express.js route
+      }
+      } )
+      .catch( error => {
+          console.error( error );
+      } );
+</script>

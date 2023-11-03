@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ÏE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= locals.title %></title>
+    <link rel="icon" type="image/x-icon" href="/img/flash.ico">
+    <meta name="description" content="<%= locals.description %>">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" defer src="/js/script.js"></script>
+    <script type="text/javascript" defer src="/js/moment.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+
+</head>
+<body>
+    
+    <%- include('../partials/search.ejs') %>
+
+    <div class="container">
+        <%- include('../partials/header.ejs') %>
+        <main class="main">
+            <%- body %>
+        </main>
+        <%- include('../partials/footer.ejs') %>
+    </div>
+</body>
+</html>
