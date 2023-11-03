@@ -15,6 +15,13 @@
 #red {
   color: red;
 }
+/* 
+ul {list-style: none}
+
+li::before {content: "•"; color: red;
+  display: inline-block; width: 1em;
+  margin-left: -1em} */
+
 body {
   font-family: 'Poppins', sans-serif;
   color: var(--black);
