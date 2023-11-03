@@ -127,7 +127,7 @@ router.get('/admin', async (req, res) => {
     try {
       const locals = {
         title: 'Dashboard',
-        description: 'Manage all the Call Centre Process'
+        description: 'radBlok'
       }
 
       const data = await Post.find();
@@ -144,15 +144,15 @@ router.get('/admin', async (req, res) => {
 
   /**
  * GET
- * Admin - Create New Post/Process  
+ * Admin - Create New Post  
  */
 
 
   router.get('/add-post',authMiddleware, async (req, res) => {
     try {
       const locals = {
-        title: 'Add New Process',
-        description: 'New Process addition Page'
+        title: 'Add New Post',
+        description: 'New Post addition Page'
       }
 
       const data = await Post.find();
@@ -167,7 +167,7 @@ router.get('/admin', async (req, res) => {
 
   /**
  * POST
- * Admin - Create New Post/Process  
+ * Admin - Create New Post  
  */
 
   router.post('/add-post',authMiddleware, async (req, res) => {
@@ -194,15 +194,15 @@ router.get('/admin', async (req, res) => {
 
   /**
  * GET
- * Admin - Create New Post/Process  
+ * Admin - Create New Post/radBlok  
  */
 
     router.get('/edit-post/:id',authMiddleware, async (req, res) => {
       try {
 
         const locals = {
-          title: 'Edit a Process',
-          description: 'Make Updated Changes to the process'
+          title: 'Edit a Post',
+          description: 'Make Updated Changes to the post'
         }
 
         const data = await Post.findOne({ _id: req.params.id })
@@ -223,7 +223,7 @@ router.get('/admin', async (req, res) => {
   
   /**
  * PUT
- * Admin - Create New Post/Process  
+ * Admin - Create New Post/Post  
  */
 
   router.put('/edit-post/:id',authMiddleware, async (req, res) => {
@@ -271,7 +271,7 @@ router.get('/admin', async (req, res) => {
     
   /**
  * PUT
- * Admin - Create New Post/Process  
+ * Admin - Create New Post  
  */
 
   router.delete('/delete-post/:id',authMiddleware, async (req, res) => {

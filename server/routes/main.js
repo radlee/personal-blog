@@ -69,7 +69,7 @@ router.get('/post/:id', async (req, res) => {
   
       const locals = {
         title: data.title,
-        description: 'The complete guide to processes'
+        description: 'The complete guide to radBlok'
       }
   
       res.render('post', { 
@@ -90,7 +90,7 @@ router.get('/post/:id', async (req, res) => {
 router.post('/search', async (req, res) => {
   try {
     const locals = {
-      title: 'Process Search',
+      title: 'radBlok Search',
       description: "Try and search something.."
     }
 
