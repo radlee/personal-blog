@@ -11,9 +11,6 @@ const ImageSchema = new Schema({
         type: String,
         required: true
     },
-    description: { // Changed from 'heders' to 'description'
-        type: String,
-    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -65,7 +65,6 @@ app.post('/uploads', MultipartyMiddleware, async (req, res) => {
     //Save The Image file to a directory on your server
     const originalFileName = `/uploads/${file.originalFilename}`;
     const filePath = `/uploads/${file.path}`;
-    const description = req.files.upload.headers; // Use req.files.upload.headers to get the image description
 
     
     console.log("File Name: ", originalFileName);
@@ -75,7 +74,6 @@ app.post('/uploads', MultipartyMiddleware, async (req, res) => {
     const newImage = new Image({
         originalFilename: originalFileName,
         path: filePath,
-        description: description,
     });
 
     try {
