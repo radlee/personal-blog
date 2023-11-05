@@ -1,24 +1,26 @@
 require('dotenv').config();
 
 const express = require('express');
+const bodyparser = require('body-parser');
 const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const multiparty = require('connect-multiparty');
+const MultipartyMiddleware = multiparty({uploadDir: './uploads'})
+const morgan = require('morgan');
 const MongoStore = require('connect-mongo');
 var moment = require('moment');
 const { v4: uuidv4 } = require('uuid'); // Import UUID generator
 
-
-const multer = require('multer');
-
-const upload = multer({ dest: 'uploads/' });
 
 const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers');
 
 const app = express();
 app.locals.moment = require('moment');
+app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.json());
 
 const PORT = 5000 || process.env.PORT;
 
@@ -48,9 +50,14 @@ app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
 app.locals.isActiveRoute = isActiveRoute;
+app.use('/uploads', express.static(__dirname+'uploads'));
 
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
+
+app.post('/uploads', MultipartyMiddleware, (req, res) => {
+    console.log(req.files.upload)
+})
 
 app.listen(PORT, () => {
     console.log(`Server running on PORT: ${PORT}`)

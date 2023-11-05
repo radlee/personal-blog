@@ -3,7 +3,7 @@
 <div class="admin-title">
     <h2>Add New Blog Post</h2>
 </div>
-<script src="/public/ckeditor/ckeditor.js"></script>
+
 <form action="/add-post" method="POST">
 
     <label for="title"><b>Title</b></label>
@@ -21,7 +21,7 @@
       .create( document.querySelector( '#editor' ), {
         ckfinder: {
         // CKFinder configuration options
-        uploadUrl: '/upload-file' // Set the URL to your Express.js route
+        uploadUrl: '/uploads' // Set the URL to your Express.js route
       }
       } )
       .catch( error => {
