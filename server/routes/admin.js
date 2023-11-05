@@ -12,14 +12,14 @@ const jwtSecret = process.env.JWT_SECRET;
  * GET
  * Admin - Kiosks
  */
-router.get('/manage-kiosks', async (req, res) => {
+router.get('/management', async (req, res) => {
   try {
     const locals = {
-      title: 'Admin - Kiosks Update',
-      description: "Learning and Development Admin"
+      title: 'Management',
+      description: "Data Entry - Management"
     }
 
-    res.render("admin/manage-kiosks", { locals, layout: adminLayout });
+    res.render("admin/manage", { locals, layout: adminLayout });
 
   } catch (error) {
     console.log(error);

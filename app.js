@@ -16,6 +16,7 @@ const { v4: uuidv4 } = require('uuid'); // Import UUID generator
 
 const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers');
+const Image = require('./server/models/Image');
 
 const app = express();
 app.locals.moment = require('moment');
@@ -55,8 +56,35 @@ app.use('/uploads', express.static(__dirname+'uploads'));
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
 
-app.post('/uploads', MultipartyMiddleware, (req, res) => {
-    console.log(req.files.upload)
+app.post('/uploads', MultipartyMiddleware, async (req, res) => {
+    const file = req.files.upload;
+    if(!file) {
+        return res.status(400).send('Nofile uploaded');
+    }
+
+    //Save The Image file to a directory on your server
+    const originalFileName = `/uploads/${file.originalFilename}`;
+    const filePath = `/uploads/${file.path}`;
+    const description = req.files.upload.headers; // Use req.files.upload.headers to get the image description
+
+    
+    console.log("File Name: ", originalFileName);
+    console.log("File Path: ", filePath);
+
+    // Create a new image document and save it to the MongoDB
+    const newImage = new Image({
+        originalFilename: originalFileName,
+        path: filePath,
+        description: description,
+    });
+
+    try {
+        await newImage.save();
+        res.status(201).json(newImage);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error saving the image to the database.');
+    }
 })
 
 app.listen(PORT, () => {
