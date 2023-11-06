@@ -65,7 +65,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
 
-
 // Statict files
 app.use(express.static("uploaded"));
 
