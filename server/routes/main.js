@@ -39,8 +39,6 @@ router.get('', async(req, res) => {
         .limit(perPage)
         .exec();
 
-        console.log("The Data with IMG - ", data)
-
         const count = await Post.count();
         const nextPage = parseInt(page) + 1;
         const hasNextPage = nextPage <= Math.ceil(count / perPage);
