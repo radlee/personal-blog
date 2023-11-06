@@ -12,7 +12,8 @@ const PostSchema = new Schema({
         required: true
     },
     image: {
-        type: String,  // Store the URL to the uploaded image
+        type: Schema.Types.ObjectId,  // Store the ID of the associated image
+        ref: 'Image',  // Reference to the Image model
     },
     createdAt: {
         type: Date,
@@ -24,4 +25,4 @@ const PostSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Post',PostSchema);
+module.exports = mongoose.model('Post', PostSchema);
