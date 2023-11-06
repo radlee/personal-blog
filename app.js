@@ -71,35 +71,68 @@ app.use(express.static("uploaded"));
 
 // Handle file uploads
 app.post('/upload', MultipartyMiddleware, (req, res) => {
-    console.log(req.files.upload);
     const TempFile = req.files.upload;
     const TempPathfile = TempFile.path;
-
-    const targetPathUrl = path.join(__dirname, './uploaded/' + TempFile.name);
-
-    if (path.extname(TempFile.originalFilename).toLowerCase() === '.png' ||
-        path.extname(TempFile.originalFilename).toLowerCase() === '.jpg') {
-        fs.rename(TempPathfile, targetPathUrl, err => {
-            if (err) {
-                res.status(500).json({
-                    error: 'File upload failed'
-                });
-                return console.log(err);
-            }
-
-            res.status(200).json({
-                uploaded: true,
-                url: `${TempFile.originalFilename}`
+  
+    if (
+      path.extname(TempFile.originalFilename).toLowerCase() === '.png' ||
+      path.extname(TempFile.originalFilename).toLowerCase() === '.jpg'
+    ) {
+      // Read the image file
+      fs.readFile(TempPathfile, (err, data) => {
+        if (err) {
+          res.status(500).json({
+            error: 'File read failed',
+          });
+          return console.log(err);
+        }
+  
+        // Create a new image document in MongoDB
+        const newImage = new Image({
+          name: TempFile.originalFilename,
+          data: data,
+          contentType: 'image/' + path.extname(TempFile.originalFilename).slice(1),
+        });
+  
+        // Save the image document
+        newImage.save((error, savedImage) => {
+          if (error) {
+            res.status(500).json({
+              error: 'Image save failed',
             });
+            return console.log(error);
+          }
+  
+          // Respond with the saved image's ID or other details
+          res.status(200).json({
+            uploaded: true,
+            imageId: savedImage._id,
+          });
         });
+      });
     } else {
-        res.status(400).json({
-            error: 'Invalid file type'
-        });
+      res.status(400).json({
+        error: 'Invalid file type',
+      });
     }
+  });
 
-    console.log('Target Path Url - ', targetPathUrl);
-});
+
+  app.get('/image/:id', (req, res) => {
+    const imageId = req.params.id;
+    Image.findById(imageId, (error, image) => {
+      if (error) {
+        return res.status(404).json({ error: 'Image not found' });
+      }
+  
+      // Set the appropriate response content type
+      res.contentType(image.contentType);
+  
+      // Send the image data as the response
+      res.send(image.data);
+    });
+  })
+  
 
 // Start the server and listen on the defined port
 app.listen(PORT, () => {
