@@ -21,7 +21,16 @@
       .create( document.querySelector( '#editor' ), {
         ckfinder: {
         // CKFinder configuration options
-        uploadUrl: '/uploads' // Set the URL to your Express.js route
+        uploadUrl: '/upload', // Set the URL to your Express.js route
+        // Enable the XMLHttpRequest.withCredentials property.
+        withCredentials: true,
+        
+        // Headers sent along with the XMLHttpRequest to the upload server.
+        headers: {
+            'X-CSRF-TOKEN': 'CSFR-Token',
+            Authorization: 'Bearer <JSON Web Token>'
+        }
+
       }
       } )
       .catch( error => {
