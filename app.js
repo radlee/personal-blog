@@ -1,5 +1,5 @@
+// Import required modules and packages
 require('dotenv').config();
-
 const express = require('express');
 const bodyparser = require('body-parser');
 const expressLayout = require('express-ejs-layouts');
@@ -7,33 +7,37 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const multiparty = require('connect-multiparty');
-const MultipartyMiddleware = multiparty({uploadDir: './uploads'})
+const MultipartyMiddleware = multiparty({ uploadDir: './uploads' });
 const morgan = require('morgan');
 const MongoStore = require('connect-mongo');
-var moment = require('moment');
-const { v4: uuidv4 } = require('uuid'); // Import UUID generator
+const moment = require('moment');
+const path = require('path');
+const fs = require('fs');
 
-
+// Import other required files and models
 const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers');
 const Image = require('./server/models/Image');
 
+// Create an Express application
 const app = express();
-app.locals.moment = require('moment');
-app.use(bodyparser.urlencoded({extended: true}));
+app.locals.moment = moment;
+app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
-const PORT = 5000 || process.env.PORT;
+// Define the port for the application
+const PORT = process.env.PORT || 5000;
 
-
-//Connect to DB
+// Connect to the database
 connectDB();
 
+// Set up various middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 
+// Configure session
 app.use(session({
     secret: 'we cant share',
     resave: false,
@@ -41,50 +45,62 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI
     })
-}))
+}));
 
+// Serve static files from the 'public' directory
 app.use(express.static('public'));
 
-//Templating Engine (EJS)
+// Set up the Templating Engine (EJS)
 app.use(expressLayout);
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
+// Add a global helper function
 app.locals.isActiveRoute = isActiveRoute;
-app.use('/uploads', express.static(__dirname+'uploads'));
 
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Define your routes
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
 
-app.post('/uploads', MultipartyMiddleware, async (req, res) => {
-    const file = req.files.upload;
-    if(!file) {
-        return res.status(400).send('Nofile uploaded');
+// Statict files
+app.use(express.static("uploaded"));
+
+// Handle file uploads
+app.post('/upload', MultipartyMiddleware, (req, res) => {
+    console.log(req.files.upload);
+    const TempFile = req.files.upload;
+    const TempPathfile = TempFile.path;
+
+    const targetPathUrl = path.join(__dirname, './uploaded/' + TempFile.name);
+
+    if (path.extname(TempFile.originalFilename).toLowerCase() === '.png' ||
+        path.extname(TempFile.originalFilename).toLowerCase() === '.jpg') {
+        fs.rename(TempPathfile, targetPathUrl, err => {
+            if (err) {
+                res.status(500).json({
+                    error: 'File upload failed'
+                });
+                return console.log(err);
+            }
+
+            res.status(200).json({
+                uploaded: true,
+                url: `${TempFile.originalFilename}`
+            });
+        });
+    } else {
+        res.status(400).json({
+            error: 'Invalid file type'
+        });
     }
 
-    //Save The Image file to a directory on your server
-    const originalFileName = `/uploads/${file.originalFilename}`;
-    const filePath = `/uploads/${file.path}`;
+    console.log('Target Path Url - ', targetPathUrl);
+});
 
-    
-    console.log("File Name: ", originalFileName);
-    console.log("File Path: ", filePath);
-
-    // Create a new image document and save it to the MongoDB
-    const newImage = new Image({
-        originalFilename: originalFileName,
-        path: filePath,
-    });
-
-    try {
-        await newImage.save();
-        res.status(201).json(newImage);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error saving the image to the database.');
-    }
-})
-
+// Start the server and listen on the defined port
 app.listen(PORT, () => {
-    console.log(`Server running on PORT: ${PORT}`)
+    console.log(`Server running on PORT: ${PORT}`);
 });
