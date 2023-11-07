@@ -12,6 +12,10 @@
   --border-radius: 10px;
 }
 
+.about {
+  text-align: center;
+}
+
 #red {
   color: red;
 }
