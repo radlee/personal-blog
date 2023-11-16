@@ -4,10 +4,13 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const methodOverride = require('method-override');
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 
+const app = express();
+
+app.use(methodOverride('_method'));
 /**
  * GET
  * Admin - Kiosks
@@ -191,10 +194,11 @@ router.get('/admin', async (req, res) => {
     }
   });
 
+  
 
   /**
  * GET
- * Admin - Create New Post/radBlok  
+ * Admin - Edit a Post/radBlok  
  */
 
     router.get('/edit-post/:id',authMiddleware, async (req, res) => {
@@ -223,23 +227,30 @@ router.get('/admin', async (req, res) => {
   
   /**
  * PUT
- * Admin - Create New Post/Post  
+ * Admin - Update a Post/Post  
  */
 
-  router.put('/edit-post/:id',authMiddleware, async (req, res) => {
+  router.put('/edit-post/:id', authMiddleware, async (req, res) => {
     try {
-      await Post.findByIdAndUpdate(req.params.id, {
-        title: req.body.title,
-        body: req.body.body,
-        updatedAt: Date.now()
-      });
+        // Find the post by ID and update its properties
+        const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
+            title: req.body.title,
+            body: req.body.body,
+            updatedAt: Date.now()
+        }, { new: true });
 
-      res.redirect(`/edit-post/${req.params.id}`);
+        // Check if the post was not found
+        if (!updatedPost) {
+            return res.status(404).send("Post not found");
+        }
 
+        // Redirect to the updated post or handle it as needed
+        res.redirect(`/edit-post/${req.params.id}`);
     } catch (error) {
-      console.log(error);
+        console.log(error);
+        res.status(500).send("Internal Server Error");
     }
-  })
+});
 
 
 
