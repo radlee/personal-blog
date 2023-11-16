@@ -11,24 +11,36 @@
 <form action="/edit-post/<%= data._id %>?_method=PUT" method="POST">
 
     <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>">
+    <input type="text" placeholder="fPost Title" name="title" value="<%= data.title %>">
 
     <label for="body"><b>Content</b></label>
-    <textarea id="editor" name="body" cols="50" rows="10"><%- data.body %></textarea>
+   
+    <div id="editor-container" name="body" ><%- data.body %></div>
 
     <input type="submit" value="Update" class="btn">
 
 </form>
 
 <script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ), {
-          ckfinder: {
-          // CKFinder configuration options
-          uploadUrl: '/upload' // Set the URL to your Express.js route
-        }
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
+    document.addEventListener("DOMContentLoaded", function() {
+      var quill = new Quill('#editor-container', {
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['image', 'code-block']
+          ]
+        },
+        placeholder: 'Compose an epic...',
+        theme: 'snow'  // or 'bubble'
+      });
+  
+      var form = document.querySelector('form');
+      var quillContentInput = document.getElementById('quill-content');
+  
+      form.addEventListener('submit', function() {
+        var editorContent = document.querySelector('.ql-editor').innerHTML;
+        quillContentInput.value = editorContent;
+      });
+    });
   </script>
