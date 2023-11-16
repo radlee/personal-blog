@@ -23,8 +23,8 @@ const Image = require('./server/models/Image');
 const app = express();
 app.locals.moment = moment;
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyparser.json({limit: '50mb'}));
+app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 
 // Define the port for the application
 const PORT = process.env.PORT || 5000;
