@@ -11,9 +11,8 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-    image: {
-        type: Schema.Types.ObjectId,  // Store the ID of the associated image
-        ref: 'Image',  // Reference to the Image model
+    cover: {
+        type: String,
     },
     createdAt: {
         type: Date,
