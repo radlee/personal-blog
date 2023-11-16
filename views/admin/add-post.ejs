@@ -9,14 +9,42 @@
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Post Title" name="title">
 
+    <!-- Hidden input to store Quill editor content -->
+    <input type="hidden" id="quill-content" name="body">
+
     <label for="body"><b>Content</b></label>
-    <textarea id="editor" name="body" cols="50" rows="10"></textarea>
+    <div id="editor-container"></div>
 
     <input type="submit" value="Add" class="btn">
 
 </form>
 
+<!-- Initialize Quill editor -->
 <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var quill = new Quill('#editor-container', {
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, false] }],
+          ['bold', 'italic', 'underline'],
+          ['image', 'code-block']
+        ]
+      },
+      placeholder: 'Compose an epic...',
+      theme: 'snow'  // or 'bubble'
+    });
+
+    var form = document.querySelector('form');
+    var quillContentInput = document.getElementById('quill-content');
+
+    form.addEventListener('submit', function() {
+      var editorContent = document.querySelector('.ql-editor').innerHTML;
+      quillContentInput.value = editorContent;
+    });
+  });
+</script>
+
+<!-- <script>
   ClassicEditor
       .create( document.querySelector( '#editor' ), {
         ckfinder: {
@@ -36,4 +64,4 @@
       .catch( error => {
           console.error( error );
       } );
-</script>
+</script> -->
