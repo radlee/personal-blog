@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 const methodOverride = require('method-override');
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
+const multer = require('multer');
+const upload = multer();
 
 const app = express();
 
@@ -230,8 +232,9 @@ router.get('/admin', async (req, res) => {
  * Admin - Update a Post/Post  
  */
 
-  router.put('/edit-post/:id', authMiddleware, async (req, res) => {
+  router.put('/edit-post/:id', upload.none(), authMiddleware, async (req, res) => {
     try {
+      
         // Find the post by ID and update its properties
         const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
@@ -281,7 +284,7 @@ router.get('/admin', async (req, res) => {
 
     
   /**
- * PUT
+ * DELETE
  * Admin - Create New Post  
  */
 
