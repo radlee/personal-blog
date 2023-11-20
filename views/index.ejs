@@ -5,7 +5,7 @@
     <p class="author__body">Agile Full Stack MERN 👨‍💻 </p>
 </div>
 
-<img src="/img/hero.jpg" alt="gscc" class="hero-image" width="981" height="528">
+<img src="/img/hero.webp" alt="gscc" class="hero-image" width="1920" height="1080">
 
 <section class="articles">
     <hr />
@@ -25,11 +25,11 @@
     </ul>
 
     <% if ( nextPage !== null ) { %> 
-        <a href='/?page=<%= nextPage %>' class='pagination'>&lt; View Older Posts</a>
+        <a href='/?page=<%= nextPage %>' class='pagination'>&lt; Older</a>
     <% } %>
 
     <% if (current > 1) { %>
-        <a href="/?page=<%= current - 1 %>" class="pagination pagination-right">View Newer Posts &gt;</a>
+        <a href="/?page=<%= current - 1 %>" class="pagination pagination-right">Newer &gt;</a>
     <% } %>
 
 </section>
