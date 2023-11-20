@@ -1,3 +1,7 @@
+
+
+  
+
 <a href="/dashboard">&larr; Back To Posts</a>
 
 <div class="admin-title">
@@ -11,8 +15,10 @@
 <form action="/edit-post/<%= data._id %>?_method=PUT" method="POST">
 
     <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="fPost Title" name="title" value="<%= data.title %>">
+    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>">
 
+    <input type="hidden" id="quill-content" name="body">
+    
     <label for="body"><b>Content</b></label>
    
     
@@ -21,6 +27,8 @@
     <input type="submit" value="Update" class="btn">
 
 </form>
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -48,16 +56,28 @@
             theme: 'snow'
         });
 
-        var form = document.querySelector('form');
 
-        form.addEventListener('submit', function () {
-            // Get the HTML content from the Quill editor
+        var form = document.querySelector('form');
+        var hiddenInput = document.querySelector('input[name="body"]');
+
+        // Initialize hidden input with the initial content
+        hiddenInput.value = quill.root.innerHTML;
+
+        // Listen to the text-change event to update the hidden input
+        quill.on('text-change', function () {
             var editorContent = quill.root.innerHTML;
-            
-            // Set the value of the hidden input field to the Quill content
-            form.querySelector('[name="body"]').value = editorContent;
+            hiddenInput.value = editorContent;
+            console.log("Quill content changed:", editorContent);
         });
+
+        form.onsubmit = function () {
+            // For debugging purposes
+            console.log("Quill content before submit:", hiddenInput.value);
+
+            // Add any additional logic here if needed before submitting the form
+
+            return true; // Change to true to allow the form submission
+        };
+
     });
 </script>
-
-  
