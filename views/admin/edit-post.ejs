@@ -1,5 +1,11 @@
-
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+<style>
+.ql-font-roboto {
+  font-family: 'Poppins';
+}
+</style>
   
 
 <a href="/dashboard">&larr; Back To Posts</a>
@@ -16,10 +22,12 @@
 
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>">
-
+    <br />
     <label for="title"><b>Change Cover Image</b></label> <br />
+    <br />
     <input class="form-control form-control-lg" type="file" name="image" accept="image/*" required>
-
+    
+    <br />
     <!-- Display the current image if available -->
     <% if (data.image) { %>
         <img src="<%= '/uploads/' + data.image %>" alt="Current Image" style="max-width: 100%;">

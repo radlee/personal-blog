@@ -1,6 +1,8 @@
-<h1><%= data.title %></h1>
-
 <a href="/edit-post/<%= data._id %>" class="button"> + Edit Post</a>
+
+<img src="<%= '/uploads/' + data.image %>" alt="Current Image" style="max-width: 100%;">
+<br />
+<h1><%= data.title %></h1>
 
 <article class="article"><%- data.body %></article>
 

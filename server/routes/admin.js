@@ -8,11 +8,9 @@ const methodOverride = require('method-override');
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 const multer = require('multer');
-
 const app = express();
 
-
-//Image Upload - Multer ---------------------------------
+//Image Upload - Multer 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads');
@@ -25,8 +23,6 @@ var storage = multer.diskStorage({
 var upload = multer({
   storage: storage,
 }).single('image');
-
-
 
 app.use(methodOverride('_method'));
 /**
@@ -47,27 +43,31 @@ router.get('/management', async (req, res) => {
   }
 });
 
-
 /**
  * GET
  * Check  Login
  */
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   const token = req.cookies.token;
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
     const decoded = jwt.verify(token, jwtSecret);
-    req.userId = decoded.userId;
+    console.log('Decoded token:', decoded);
+
+    req.user = await User.findById(decoded.userId).select('-password');
+    console.log('User information:', req.user);
+
     next();
   } catch (error) {
-    res.status(401).json({ message: 'Unauthorized' })
+    console.log('Authentication error:', error);
+    res.status(401).json({ message: 'Unauthorized' });
   }
-}
+};
 
   /**
  * GET
@@ -138,7 +138,6 @@ router.get('/admin', async (req, res) => {
     }
   });
 
-
     /**
  * GET
  * Admin - Dashboard
@@ -162,7 +161,6 @@ router.get('/admin', async (req, res) => {
     }
   });
 
-
   /**
  * GET
  * Admin - Create New Post  
@@ -185,35 +183,31 @@ router.get('/admin', async (req, res) => {
     }
   });
 
-
   /**
  * POST
  * Admin - Create New Post  
  */
 
-  router.post('/add-post',authMiddleware,upload, async (req, res) => {
-    try { 
+  router.post('/add-post', upload, authMiddleware, async (req, res) => {
+    console.log('User information:', req.user); // Log user information
 
-      try {
-        const newPost = new Post({
-          title: req.body.title,
-          body: req.body.body,
-          image: req.file.filename
-        });
-        
-        await Post.create(newPost);
-        res.redirect('/dashboard');
+    try {
+      const newPost = new Post({
+        title: req.body.title,
+        body: req.body.body,
+        image: req.file.filename,
+        author: req.user._id // Set the author field with the current user's _id
+      });
 
-      } catch (error) {
-       console.log(error) 
-      }
-
+      console.log('Data with authors to be pop:', newPost); // Log the data to check the author field
+  
+      await newPost.save();
+      res.redirect('/dashboard');
     } catch (error) {
       console.log(error);
+      res.status(500).send('Internal Server Error');
     }
   });
-
-  
 
   /**
  * GET
@@ -243,9 +237,6 @@ router.get('/admin', async (req, res) => {
       }
     })
 
-    
-
-  
   /**
  * PUT
  * Admin - Update a Post/Post  
@@ -275,8 +266,6 @@ router.get('/admin', async (req, res) => {
     }
 });
 
-
-
   /**
  * POST
  * Admin - Register
@@ -300,8 +289,6 @@ router.get('/admin', async (req, res) => {
       console.log(error);
     }
   });
-
-
     
   /**
  * DELETE
@@ -316,7 +303,6 @@ router.get('/admin', async (req, res) => {
       console.log(error)
     }
   });
-
 
     /**
  * GET

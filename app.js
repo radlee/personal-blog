@@ -55,7 +55,7 @@ app.set('view engine', 'ejs');
 app.locals.isActiveRoute = isActiveRoute;
 
 // Serve static files from the 'uploads' directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads/')));
 
 // Define your routes
 app.use('/', require('./server/routes/main'));

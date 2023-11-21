@@ -1,4 +1,10 @@
 <header class="header">
+    <div class="header__hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
     <a href="/" class="header__logo"><span id="red">rad</span>Blok</a>
 
     <nav class="header__nav">
@@ -9,9 +15,6 @@
             <li>
                 <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">About</a>
             </li>
-            <!-- <li>
-                <a href="/active-kiosks" class="">Active Kiosks</a>
-            </li> -->
             <li>
                 <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Contact</a>
             </li>
@@ -29,3 +32,10 @@
     </div>
 
 </header>
+
+<script>
+  function toggleMenu() {
+    const menu = document.querySelector('.header__nav');
+    menu.style.visibility = (menu.style.visibility === 'visible') ? 'hidden' : 'visible';
+  }
+</script>

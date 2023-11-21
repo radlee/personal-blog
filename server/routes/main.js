@@ -23,36 +23,38 @@ router.get('/about', (req, res) => {
  * HOME
  */
 
-router.get('', async(req, res) => {
+router.get('', async (req, res) => {
+  try {
+      const locals = {
+          title: 'radBlok',
+          description: 'Bloggers Republic'
+      }
 
-    try {
-        const locals = {
-            title: 'radBlok',
-            description: 'Bloggers Republic'
-        }
+      let perPage = 10;
+      let page = req.query.page || 1;
+      
+      // Use populate to retrieve posts with associated author information
+      const data = await Post.find().sort({ createdAt: -1 })
+          .skip(perPage * page - perPage)
+          .limit(perPage)
+          .populate('author') // Add this line to populate the 'author' field
+          .exec();
+          console.log('Data with populated authors:', data); // Log the data to check the author field
 
-        let perPage = 10;
-        let page = req.query.page || 1;
-        // createdAt: 1 - reaplace to make the right oder
-        const data = await Post.aggregate([ { $sort: { createdAt: -1 } } ])
-        .skip(perPage * page - perPage)
-        .limit(perPage)
-        .exec();
+      const count = await Post.countDocuments();
+      const nextPage = parseInt(page) + 1;
+      const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
-        const count = await Post.count();
-        const nextPage = parseInt(page) + 1;
-        const hasNextPage = nextPage <= Math.ceil(count / perPage);
-
-        res.render('index', { 
-            locals, 
-            data,
-            current: page,
-            nextPage: hasNextPage ? nextPage : null,
-            currentRoute: '/'
-        });
-    } catch (error) {
-        console.log(error)
-    }
+      res.render('index', {
+          locals,
+          data,
+          current: page,
+          nextPage: hasNextPage ? nextPage : null,
+          currentRoute: '/'
+      });
+  } catch (error) {
+      console.log(error);
+  }
 });
 
 
@@ -71,8 +73,6 @@ router.get('/post/:id', async (req, res) => {
         title: data.title,
         description: 'The Ever Evolving Blog'
       }
-
-      console.log("The Data fromn the Db ------ ", data)
   
       res.render('post', { 
         locals,

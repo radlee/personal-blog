@@ -7,20 +7,16 @@
 
 <img src="/img/hero.webp" alt="gscc" class="hero-image" width="1920" height="1080">
 
-    
-
     <section class="articles">
-
-        <hr />
+    <hr />
     <h3 class="articles__heading"><span >Latest Posts</span></h3>
-    
 
     <% if (data != '') { %>
 
         <% data.forEach((post, index) => { %>
         <article <%= index %>>
             <a  href="/post/<%= post._id %>">
-                <hr />
+            <hr />
           <div class="article-wrapper">
             <figure class="image-container">
               <img class="img-thumbnail" src="<%= '/uploads/' + post.image %>" alt="" />
@@ -28,7 +24,7 @@
             <div class="article-body">
               <h2><%= post.title %></h2>
               <p>
-                <%= post.author %>
+                <%= post.author.username %>
               </p>
               
               <br />
