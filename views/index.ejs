@@ -7,22 +7,48 @@
 
 <img src="/img/hero.webp" alt="gscc" class="hero-image" width="1920" height="1080">
 
-<section class="articles">
-    <hr />
-    <h3 class="articles__heading"><span >Latest Posts</span></h3>
-    <hr />
-    <ul class="article-ul">
+    
 
-        <% data.forEach(post => { %>
-            <li>
-                 <a href="/post/<%= post._id %>">
-                     <span><%= post.title %></span>
-                     <span class="article-list__date"><%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %></span>
-                 </a>
-            </li>
+    <section class="articles">
+
+        <hr />
+    <h3 class="articles__heading"><span >Latest Posts</span></h3>
+    
+
+    <% if (data != '') { %>
+
+        <% data.forEach((post, index) => { %>
+        <article <%= index %>>
+            <a  href="/post/<%= post._id %>">
+                <hr />
+          <div class="article-wrapper">
+            <figure class="image-container">
+              <img class="img-thumbnail" src="<%= '/uploads/' + post.image %>" alt="" />
+            </figure>
+            <div class="article-body">
+              <h2><%= post.title %></h2>
+              <p>
+                <%= post.author %>
+              </p>
+              
+              <br />
+              <a  href="/post/<%= post._id %>" >
+               <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
+                
+              </a>
+            </div>
+          </div>
+        </a>
+        </article>
         <% }) %>
-           
-    </ul>
+
+   <% } else { %>
+            <h1>No Posts found in the DB</h1>
+        <% } %>
+            
+
+
+
 
     <% if ( nextPage !== null ) { %> 
         <a href='/?page=<%= nextPage %>' class='pagination'>&lt; Older</a>

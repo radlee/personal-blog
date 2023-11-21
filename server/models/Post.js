@@ -11,8 +11,9 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-    cover: {
+    image: {
         type: String,
+        required: true
     },
     createdAt: {
         type: Date,
