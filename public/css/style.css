@@ -443,7 +443,7 @@ a:hover {
     grid-template-columns: 1fr; /* Single column for smaller screens */
   }
 
-  .article-wrapper figure {
+.article-wrapper figure {
     width: 75%;
 }
 

@@ -200,7 +200,7 @@ router.get('/admin', async (req, res) => {
           body: req.body.body,
           image: req.file.filename
         });
-        console.log("The new User === ", newPost);
+        
         await Post.create(newPost);
         res.redirect('/dashboard');
 
