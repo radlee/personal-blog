@@ -6,18 +6,13 @@ const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const multiparty = require('connect-multiparty');
-const MultipartyMiddleware = multiparty({ uploadDir: './uploads' });
-const morgan = require('morgan');
 const MongoStore = require('connect-mongo');
 const moment = require('moment');
 const path = require('path');
-const fs = require('fs');
 
 // Import other required files and models
 const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers');
-const Image = require('./server/models/Image');
 
 // Create an Express application
 const app = express();
@@ -65,9 +60,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Define your routes
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
-
-// Statict files
-// app.use(express.static("uploads"));
 
 
 // Start the server and listen on the defined port

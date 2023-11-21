@@ -17,15 +17,21 @@
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>">
 
+    <label for="title"><b>Upload Cover Image</b></label>
+    <input class="form-control form-control-lg" type="file" name="image" accept="image/*" required>
+
+    <!-- Display the current image if available -->
+    <% if (data.image) { %>
+        <img src="<%= '/uploads/' + data.image %>" alt="Current Image" style="max-width: 100%;">
+    <% } %>
+
     <input type="hidden" id="quill-content" name="body">
-    
+
     <label for="body"><b>Content</b></label>
-   
-    
-    <div id="editor-container" name="body" ><%- data.body %></div>
+
+    <div id="editor-container" name="body"><%- data.body %></div>
 
     <input type="submit" value="Update" class="btn">
-
 </form>
 
 
