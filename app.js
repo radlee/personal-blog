@@ -49,7 +49,7 @@ app.use(session({
 }));
 
 // Serve static files from the 'public' directory
-app.use(express.static('uploads'));
+app.use(express.static('public'));
 
 // Set up the Templating Engine (EJS)
 app.use(expressLayout);
