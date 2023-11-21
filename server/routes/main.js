@@ -71,6 +71,8 @@ router.get('/post/:id', async (req, res) => {
         title: data.title,
         description: 'The Ever Evolving Blog'
       }
+
+      console.log("The Data fromn the Db ------ ", data)
   
       res.render('post', { 
         locals,

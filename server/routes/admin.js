@@ -229,7 +229,9 @@ router.get('/admin', async (req, res) => {
         }
 
         const data = await Post.findOne({ _id: req.params.id })
-  
+
+
+     
         res.render('admin/edit-post', {
           locals,
           data,
@@ -249,13 +251,14 @@ router.get('/admin', async (req, res) => {
  * Admin - Update a Post/Post  
  */
 
-  router.put('/edit-post/:id', authMiddleware, async (req, res) => {
+  router.put('/edit-post/:id', authMiddleware,upload, async (req, res) => {
     try {
       
         // Find the post by ID and update its properties
         const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
             body: req.body.body,
+            image: req.file.filename,
             updatedAt: Date.now()
         }, { new: true });
 
