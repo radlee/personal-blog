@@ -4,10 +4,13 @@
     <h2>Add New Blog Post</h2>
 </div>
 
-<form action="/add-post" method="POST">
+<form action="/add-post" method="POST" id="add-form" enctype="multipart/form-data">
 
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Post Title" name="title">
+
+    <label for="title"><b>Upload Cover Image</b></label>
+    <input class="form-control form-control-lg" type="file" name="image" required>
 
     <!-- Hidden input to store Quill editor content -->
     <input type="hidden" id="quill-content" name="body">

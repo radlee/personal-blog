@@ -341,6 +341,11 @@ table, td {
   right: 0;
 }
 
+.img-thumbnail {
+  height: 250px;
+  width: auto;
+}
+
 
 .searchBar.open {
   transform: translateY(0);
@@ -380,4 +385,69 @@ table, td {
 
 .pagination:hover {
   color: var(--black);
+}
+
+
+
+/* Cards */
+
+
+
+
+
+/* Base styles for larger screens */
+.article-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns, each taking up 50% of the container */
+  grid-column-gap: 20px; /* Add some space between the image and the body */
+  align-items: center; /* Align items vertically in the center */
+  margin-bottom: 20px; /* Add some space between article wrappers */
+}
+
+.article-wrapper figure {
+  width: 100%; /* Set the width of the image container to 100% */
+}
+
+.img-thumbnail {
+  width: 100%; /* Set a fixed width for the image */
+  height: auto; /* Allow the image to scale proportionally */
+}
+
+.article-body {
+  /* No need to specify width for the article body, it will take up the remaining width */
+  padding: 50px; /* Add padding between the text and the image */
+}
+
+/* Optional: Adjust styles as needed */
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .article-wrapper {
+    grid-template-columns: 1fr; /* Single column for smaller screens */
+  }
+
+  .article-wrapper figure {
+    width: 75%;
+}
+
+  .article-body {
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
 }

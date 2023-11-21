@@ -8,9 +8,25 @@ const methodOverride = require('method-override');
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 const multer = require('multer');
-const upload = multer();
 
 const app = express();
+
+
+//Image Upload - Multer ---------------------------------
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads');
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + "_"+ Date.now() + "_" + file.originalname)
+  }
+});
+
+var upload = multer({
+  storage: storage,
+}).single('image');
+
+
 
 app.use(methodOverride('_method'));
 /**
@@ -175,15 +191,16 @@ router.get('/admin', async (req, res) => {
  * Admin - Create New Post  
  */
 
-  router.post('/add-post',authMiddleware, async (req, res) => {
+  router.post('/add-post',authMiddleware,upload, async (req, res) => {
     try { 
 
       try {
         const newPost = new Post({
           title: req.body.title,
-          body: req.body.body
+          body: req.body.body,
+          image: req.file.filename
         });
-
+        console.log("The new User === ", newPost);
         await Post.create(newPost);
         res.redirect('/dashboard');
 
@@ -232,7 +249,7 @@ router.get('/admin', async (req, res) => {
  * Admin - Update a Post/Post  
  */
 
-  router.put('/edit-post/:id', upload.none(), authMiddleware, async (req, res) => {
+  router.put('/edit-post/:id', authMiddleware, async (req, res) => {
     try {
       
         // Find the post by ID and update its properties
@@ -285,7 +302,7 @@ router.get('/admin', async (req, res) => {
     
   /**
  * DELETE
- * Admin - Create New Post  
+ * Admin - Delete a Post  
  */
 
   router.delete('/delete-post/:id',authMiddleware, async (req, res) => {
