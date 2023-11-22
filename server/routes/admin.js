@@ -189,7 +189,6 @@ router.get('/admin', async (req, res) => {
  */
 
   router.post('/add-post', upload, authMiddleware, async (req, res) => {
-    console.log('User information:', req.user); // Log user information
 
     try {
       const newPost = new Post({
@@ -199,8 +198,6 @@ router.get('/admin', async (req, res) => {
         author: req.user._id // Set the author field with the current user's _id
       });
 
-      console.log('Data with authors to be pop:', newPost); // Log the data to check the author field
-  
       await newPost.save();
       res.redirect('/dashboard');
     } catch (error) {

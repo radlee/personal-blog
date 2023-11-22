@@ -81,12 +81,12 @@
         quill.on('text-change', function () {
             var editorContent = quill.root.innerHTML;
             hiddenInput.value = editorContent;
-            console.log("Quill content changed:", editorContent);
+           
         });
 
         form.onsubmit = function () {
             // For debugging purposes
-            console.log("Quill content before submit:", hiddenInput.value);
+
 
             // Add any additional logic here if needed before submitting the form
 

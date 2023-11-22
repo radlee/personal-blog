@@ -431,12 +431,13 @@ p {
 }
 
 a {
-  text-decoration: none;
-  color: #3498db;
+  color: var(--black);
+  text-decoration: none; /* Remove underlines from links */
+  transition: color 0.3s; /* Add a smooth color transition on hover */
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--red); /* Change link color to red on hover */
 }
 
 /* Responsive styles for smaller screens */
@@ -452,4 +453,108 @@ a:hover {
   .article-body {
     padding: 20px; /* Adjust padding for smaller screens */
   }
+}
+
+
+/* Add this to the existing styles */
+
+.date-author {
+  display: flex;
+  justify-content: space-between; /* Align date on the left, author on the right */
+  align-items: center; /* Center items vertically */
+  margin-top: 10px; /* Add some space above the date and author */
+}
+
+.date-author .date {
+  margin-right: auto; /* Push the date to the left edge */
+  color: rgb(170, 170, 170); /* Use the gray color for the date */
+}
+
+.date-author .author {
+  font-weight: bold; /* Make author text bold */
+  color: rgb(170, 170, 170); /* Use the gray color for the author */
+}
+
+.article-body hr {
+  margin: 10px 0; /* Add space around the hr element */
+}
+
+
+
+/* Add these variables for dark mode */
+:root {
+  --background-color: #1c1c1c;
+  --text-color: #ffffff;
+  /* ... other variables ... */
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Add these styles for dark mode */
+.date-author .date,
+.date-author .author {
+  color: var(--dark-gray);
+}
+
+.article-body hr {
+  border-color: var(--dark-border);
+}
+
+
+
+a {
+  color: var(--dark-text);
+}
+
+.btn {
+  background-color: var(--dark-text);
+  color: var(--dark-background);
+}
+
+.header {
+  background-color: var(--dark-background);
+  color: var(--dark-text);
+}
+
+.header__nav ul a {
+  color: var(--dark-text);
+}
+
+.header__button button {
+  color: var(--dark-background);
+}
+
+.header__button button:hover {
+  border: 2px solid var(--dark-background);
+}
+
+.author {
+  background-color: var(--dark-background);
+  color: var(--dark-text);
+}
+
+.article-list__date {
+  color: var(--dark-gray);
+}
+
+.article-ul li {
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.pagination,
+.pagination-right {
+  color: var(--dark-gray);
+}
+
+/* Add these styles for dark mode */
+.date-author .date,
+.date-author .author {
+  color: var(--dark-gray);
+}
+
+.article-body hr {
+  border-color: var(--dark-border);
 }
