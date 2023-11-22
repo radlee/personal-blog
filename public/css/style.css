@@ -440,6 +440,10 @@ a:hover {
   color: var(--red); /* Change link color to red on hover */
 }
 
+.article-border {
+  border-bottom: 1px solid black;
+}
+
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .article-wrapper {
@@ -499,7 +503,7 @@ body {
   color: var(--dark-gray);
 }
 
-.article-body hr {
+.article-body, .article-border {
   border-color: var(--dark-border);
 }
 
@@ -555,6 +559,6 @@ a {
   color: var(--dark-gray);
 }
 
-.article-body hr {
+.article-body  {
   border-color: var(--dark-border);
 }
