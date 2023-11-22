@@ -7,14 +7,18 @@
     <nav class="header__nav">
         <ul>
             <li>
-                <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
+                <a href="/dashboard" class=''>Dashboard</a>
             </li>
-            <li>
-                <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">About</a>
-            </li>
-            <li>
-                <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Contact</a>
-            </li>
+
+            <!-- Toggle button for dark mode -->
+    <div class="toggle-container">
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+        </label>
+        <a class="toggle-label">Dark Mode</a>
+    </div>
+            
         </ul>
     </nav>
     <div class="header__button">
@@ -27,15 +31,16 @@
         </button>
     </div>
 
-    <!-- Toggle button for dark mode -->
-    <div class="toggle-container">
-        <label class="switch">
-            <input type="checkbox" id="darkModeToggle">
-            <span class="slider"></span>
-        </label>
-        <span class="toggle-label">Dark Mode</span>
-    </div>
 </header>
+
+<script>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    darkModeToggle.addEventListener('change', () => {
+        body.classList.toggle('dark-mode');
+    });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

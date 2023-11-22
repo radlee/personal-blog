@@ -25,10 +25,7 @@ var upload = multer({
 }).single('image');
 
 app.use(methodOverride('_method'));
-/**
- * GET
- * Admin - Kiosks
- */
+
 router.get('/management', async (req, res) => {
   try {
     const locals = {
@@ -43,11 +40,6 @@ router.get('/management', async (req, res) => {
   }
 });
 
-/**
- * GET
- * Check  Login
- */
-
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.token;
 
@@ -57,10 +49,8 @@ const authMiddleware = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, jwtSecret);
-    console.log('Decoded token:', decoded);
 
     req.user = await User.findById(decoded.userId).select('-password');
-    console.log('User information:', req.user);
 
     next();
   } catch (error) {
@@ -68,11 +58,6 @@ const authMiddleware = async (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized' });
   }
 };
-
-  /**
- * GET
- * Admin - Register Page
- */
 
 router.get('/register', async (req, res) => {
     try {
@@ -88,11 +73,6 @@ router.get('/register', async (req, res) => {
     }
   });
 
-  /**
- * GET
- * Admin - Login Page
- */
-
 router.get('/admin', async (req, res) => {
     try {
       const locals = {
@@ -106,11 +86,6 @@ router.get('/admin', async (req, res) => {
       console.log(error);
     }
   });
-
-  /**
- * POST
- * Admin - Check Login
- */
 
   router.post('/admin', async (req, res) => {
     try {
@@ -138,10 +113,6 @@ router.get('/admin', async (req, res) => {
     }
   });
 
-    /**
- * GET
- * Admin - Dashboard
- */
   router.get('/dashboard', authMiddleware, async (req, res) => {
 
     try {
@@ -161,12 +132,6 @@ router.get('/admin', async (req, res) => {
     }
   });
 
-  /**
- * GET
- * Admin - Create New Post  
- */
-
-
   router.get('/add-post',authMiddleware, async (req, res) => {
     try {
       const locals = {
@@ -182,11 +147,6 @@ router.get('/admin', async (req, res) => {
       console.log(error);
     }
   });
-
-  /**
- * POST
- * Admin - Create New Post  
- */
 
   router.post('/add-post', upload, authMiddleware, async (req, res) => {
 
@@ -206,12 +166,8 @@ router.get('/admin', async (req, res) => {
     }
   });
 
-  /**
- * GET
- * Admin - Edit a Post/radBlok  
- */
 
-    router.get('/edit-post/:id',authMiddleware, async (req, res) => {
+  router.get('/edit-post/:id',authMiddleware, async (req, res) => {
       try {
 
         const locals = {
@@ -233,11 +189,6 @@ router.get('/admin', async (req, res) => {
         console.log(error);
       }
     })
-
-  /**
- * PUT
- * Admin - Update a Post/Post  
- */
 
   router.put('/edit-post/:id', authMiddleware,upload, async (req, res) => {
     try {
@@ -263,11 +214,6 @@ router.get('/admin', async (req, res) => {
     }
 });
 
-  /**
- * POST
- * Admin - Register
- */
-
   router.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -287,11 +233,6 @@ router.get('/admin', async (req, res) => {
     }
   });
     
-  /**
- * DELETE
- * Admin - Delete a Post  
- */
-
   router.delete('/delete-post/:id',authMiddleware, async (req, res) => {
     try {
       await Post.deleteOne( { _id: req.params.id });
@@ -300,11 +241,6 @@ router.get('/admin', async (req, res) => {
       console.log(error)
     }
   });
-
-    /**
- * GET
- * Admin - Admin Logout
- */
 
     router.get('/logout', (req, res) => {
       res.clearCookie('token');
