@@ -4,7 +4,7 @@
   --black: #1c1c1c;
   --gray: #7E7E7E;
   --gray-light: #E4E4E4;
-  --red: #b30000;
+  --red: #ff2424;
   --font-size-base: 1rem;
   --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
   --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
@@ -17,7 +17,7 @@
 }
 
 #red {
-  color: red;
+  color: #ff2424;
 }
 /* 
 ul {list-style: none}
