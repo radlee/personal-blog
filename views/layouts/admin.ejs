@@ -18,12 +18,13 @@
     <!-- Include the Quill library and styles -->
     <link href="/css/quill.snow.css" rel="stylesheet">
     <script src="/js/quill.js"></script>
+    <script src="/js/dark-light.js"></script>
     
 
 </head>
 <body>
     <div class="container">
-        <%- include('../partials/header_admin.ejs') %>
+        <%- include('../partials/header_admin.ejs', { currentRoute: '/main' }) %>
         <main class="main">
             <%- body %>
         </main>

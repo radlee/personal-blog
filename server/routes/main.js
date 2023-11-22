@@ -37,10 +37,9 @@ router.get('', async (req, res) => {
       const data = await Post.find().sort({ createdAt: -1 })
           .skip(perPage * page - perPage)
           .limit(perPage)
-          .populate('author') // Add this line to populate the 'author' field
+          .populate('author') 
           .exec();
-          console.log('Data with populated authors:', data); // Log the data to check the author field
-
+        
       const count = await Post.countDocuments();
       const nextPage = parseInt(page) + 1;
       const hasNextPage = nextPage <= Math.ceil(count / perPage);

@@ -14,28 +14,30 @@
     <% if (data != '') { %>
 
         <% data.forEach((post, index) => { %>
-        <article <%= index %>>
-            <a  href="/post/<%= post._id %>">
-            <hr />
-          <div class="article-wrapper">
-            <figure class="image-container">
-              <img class="img-thumbnail" src="<%= '/uploads/' + post.image %>" alt="" />
-            </figure>
-            <div class="article-body">
-              <h2><%= post.title %></h2>
-              <p>
-                <%= post.author.username %>
-              </p>
-              
-              <br />
-              <a  href="/post/<%= post._id %>" >
-               <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
-                
-              </a>
-            </div>
-          </div>
-        </a>
-        </article>
+          <article <%= index %>>
+            <a href="/post/<%= post._id %>">
+              <hr />
+              <div class="article-wrapper">
+                <figure class="image-container">
+                  <img class="img-thumbnail" src="<%= '/uploads/' + post.image %>" alt="" />
+                </figure>
+                <div class="article-body">
+                  <h2><%= post.title %></h2>
+                  <hr />
+                  <div class="date-author">
+                    <p class="date">
+                      <a href="/post/<%= post._id %>">
+                        <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
+                      </a>
+                    </p>
+                    <p class="author">
+                      @<%= post.author.username %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </article>
         <% }) %>
 
    <% } else { %>
