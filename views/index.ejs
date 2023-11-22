@@ -14,9 +14,9 @@
     <% if (data != '') { %>
 
         <% data.forEach((post, index) => { %>
-          <article <%= index %>>
+          <article class="article-border" <%= index %>>
             <a href="/post/<%= post._id %>">
-              <hr />
+              <br />
               <div class="article-wrapper">
                 <figure class="image-container">
                   <img class="img-thumbnail" src="<%= '/uploads/' + post.image %>" alt="" />
