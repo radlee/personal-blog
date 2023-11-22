@@ -291,13 +291,6 @@ img {
   text-align: center;
 }
 
-table {
-  border-collapse: collapse;
-}
-table, td {
-  border: 1px solid black;
-  padding: 20px;
-}
 
 
 /* Dashboard Admin */
@@ -306,6 +299,7 @@ table, td {
   justify-content: space-between;
   align-items: center;
 }
+
 
 .admin-posts {
   padding: 0;
@@ -325,12 +319,6 @@ table, td {
   font-size: .8rem;
   padding: 4px 8px;
   line-height: 2;
-}
-
-.admin-posts li {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
 }
 
 /* SeachBar */
@@ -616,4 +604,45 @@ input:checked + .slider:before {
 .toggle-label {
   margin-left: 10px;
   color: #000000; /* Set the text color (black for light mode) */
+}
+
+/* Add this style to your existing styles or in a separate CSS file */
+table.admin-posts {
+  border-collapse: collapse;
+  width: 100%;
+  border: none; /* Remove borders from the table */
+}
+
+table.admin-posts th, table.admin-posts td {
+  padding: 8px;
+  text-align: left;
+  border: none; /* Remove borders from table cells */
+}
+
+table.admin-posts .ctrl {
+  text-align: center; 
+}
+
+table.admin-posts a {
+  text-decoration: none;
+}
+
+table.admin-posts .admin-post-controls {
+  white-space: nowrap; /* Prevent line breaks in controls */
+}
+
+table.admin-posts .btn {
+  text-decoration: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  display: inline-block;
+  background-color: #4285f4; /* Set the button background color */
+  color: #fff; /* Set the button text color */
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+table.admin-posts .btn-delete {
+  background-color: #d32f2f; /* Set the delete button background color */
 }

@@ -3,24 +3,31 @@
     <a href="/add-post" class="button"> + Add New Blog Post</a>
 </div>
 
-<ul class="admin-posts">
-
-    <% data.forEach(post => { %>
-        
-        <li>
-            <a href="/post/<%= post._id %> ">
-                <%= post.title %> &nearr;
-            </a>
-
-            <div class="admin-post-controls">
-                <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
-
-                <form action="/delete-post/<%= post._id %>?_method=DELETE" method="post">
-                    <input type="submit" value="Delete" class="btn-delete btn">
-                </form>
-            </div>
-        </li>
-
-    <% }) %>
-
-</ul>
+<table class="admin-posts">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th class="ctrl" colspan="2">Controls</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% data.forEach(post => { %>
+            <tr>
+                <td>
+                    <a href="/post/<%= post._id %> ">
+                        <%= post.title %> &nearr;
+                    </a>
+                </td>
+                <td class="admin-post-controls">
+                    <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+                </td>
+                <td class="admin-post-controls">
+                    
+                    <form action="/delete-post/<%= post._id %>?_method=DELETE" method="post">
+                        <input type="submit" value="Delete" class="btn-delete btn">
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
