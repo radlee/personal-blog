@@ -18,10 +18,6 @@ router.get('/about', (req, res) => {
   res.render('about', { currentRoute: '/about'});
 });
 
-/**
- * GET
- * HOME
- */
 
 router.get('', async (req, res) => {
   try {
@@ -39,6 +35,8 @@ router.get('', async (req, res) => {
           .limit(perPage)
           .populate('author') 
           .exec();
+
+      console.log("From DB ----- ", data)
         
       const count = await Post.countDocuments();
       const nextPage = parseInt(page) + 1;
