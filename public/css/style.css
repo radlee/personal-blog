@@ -19,12 +19,7 @@
 #red {
   color: #ff2424;
 }
-/* 
-ul {list-style: none}
 
-li::before {content: "•"; color: red;
-  display: inline-block; width: 1em;
-  margin-left: -1em} */
 
 body {
   font-family: 'Poppins';
@@ -197,12 +192,6 @@ img {
   margin-bottom: 5px;
 }
 
-/* .tag {
-  background-color: #1c1c1c;
-  color: white;
-  padding: 20px;
-  line-height: 1.5;
-} */
 
 .author__body {
   font-size: var(--font-size-md);
@@ -211,6 +200,10 @@ img {
 
 .articles {
   padding-top: 0px !important;
+}
+
+.search {
+  color: #ff0000 !important;
 }
 
 
