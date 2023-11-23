@@ -9,6 +9,7 @@ const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 const multer = require('multer');
 const app = express();
+const path = require('path');
 
 //Image Upload - Multer 
 var storage = multer.diskStorage({
@@ -25,6 +26,10 @@ var upload = multer({
 }).single('image');
 
 app.use(methodOverride('_method'));
+
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 router.get('/management', async (req, res) => {
   try {
