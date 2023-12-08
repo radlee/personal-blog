@@ -134,6 +134,8 @@ router.get('/admin', async (req, res) => {
   router.post('/add-post', upload.single('cover'),authMiddleware, async (req, res) => {
 
     try {
+
+      const result = await cloudinary.uploader.upload(req.file.path)
     
       const newPost = new Post({
         title: req.body.title,
@@ -147,7 +149,7 @@ router.get('/admin', async (req, res) => {
     } catch (error) {
       console.log(error);
       res.status(500).send('Internal Server Error');
-    }  const result = await cloudinary.uploader.upload(req.file.path)
+    }  
       
   });
 
