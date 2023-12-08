@@ -2,7 +2,7 @@
 <div class="author">
     <!-- <h1 class="author_heading">Standard Operating Procedures</h1> -->
     <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">
-      <h1 class="author_heading">Hi, I'm Lolito</h1>
+      <h1 class="author_heading"><span id="red">rad</span>blok</h1>
     </a>
     <p class="author__body">Agile Full Stack MERN 👨‍💻 </p>
 </div>
@@ -21,7 +21,7 @@
               <br />
               <div class="article-wrapper">
                 <figure class="image-container">
-                  <img class="img-thumbnail" src="<%= '/uploads/' + post.image %>" alt="" />
+                  <img class="img-thumbnail" src="<%= post.cover %>" alt="" />
                 </figure>
                 <div class="article-body">
                   <h2><%= post.title %></h2>
