@@ -18,10 +18,6 @@ router.get('/about', (req, res) => {
   res.render('about', { currentRoute: '/about'});
 });
 
-/**
- * GET
- * HOME
- */
 
 router.get('', async (req, res) => {
   try {
