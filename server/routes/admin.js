@@ -9,27 +9,8 @@ const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 const multer = require('multer');
 const app = express();
-const path = require('path');
-
-//Image Upload - Multer 
-var storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function(req, file, cb) {
-    cb(null, file.fieldname + "_"+ Date.now() + "_" + file.originalname)
-  }
-});
-
-var upload = multer({
-  storage: storage,
-}).single('image');
-
-app.use(methodOverride('_method'));
-
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+const cloudinary = require('../utils/cloudinary')
+const upload = require('../utils/multer')
 
 router.get('/management', async (req, res) => {
   try {
@@ -153,13 +134,15 @@ router.get('/admin', async (req, res) => {
     }
   });
 
-  router.post('/add-post', upload, authMiddleware, async (req, res) => {
+  router.post('/add-post', upload.single('cover'),authMiddleware, async (req, res) => {
 
     try {
+      const result = await cloudinary.uploader.upload(req.file.path)
+      
       const newPost = new Post({
         title: req.body.title,
         body: req.body.body,
-        image: req.file.filename,
+        cover: result.secure_url,
         author: req.user._id // Set the author field with the current user's _id
       });
 
@@ -195,7 +178,7 @@ router.get('/admin', async (req, res) => {
       }
     })
 
-  router.put('/edit-post/:id', authMiddleware,upload, async (req, res) => {
+  router.put('/edit-post/:id', authMiddleware, async (req, res) => {
     try {
       
         // Find the post by ID and update its properties
