@@ -20,6 +20,17 @@
   color: #ff2424;
 }
 
+/* Add this to your existing styles or modify as needed */
+.article a.blog-link {
+  color: #ff2424; /* Set the color to blue */
+  font-weight: bold;
+}
+
+.article a.blog-link:hover {
+  color: darkblue; /* Set the hover color to dark blue */
+  text-decoration: underline; 
+  font-weight: bold;
+}
 
 body {
   font-family: 'Poppins';

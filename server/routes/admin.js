@@ -134,8 +134,7 @@ router.get('/admin', async (req, res) => {
   router.post('/add-post', upload.single('cover'),authMiddleware, async (req, res) => {
 
     try {
-      const result = await cloudinary.uploader.upload(req.file.path)
-      
+    
       const newPost = new Post({
         title: req.body.title,
         body: req.body.body,
@@ -148,7 +147,8 @@ router.get('/admin', async (req, res) => {
     } catch (error) {
       console.log(error);
       res.status(500).send('Internal Server Error');
-    }
+    }  const result = await cloudinary.uploader.upload(req.file.path)
+      
   });
 
 
@@ -162,7 +162,7 @@ router.get('/admin', async (req, res) => {
 
         const data = await Post.findOne({ _id: req.params.id })
 
-
+        console.log("Editing Data -- ", data)
      
         res.render('admin/edit-post', {
           locals,
@@ -175,29 +175,35 @@ router.get('/admin', async (req, res) => {
       }
     })
 
-  router.put('/edit-post/:id', authMiddleware, async (req, res) => {
-    try {
-      
-        // Find the post by ID and update its properties
-        const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
-            title: req.body.title,
-            body: req.body.body,
-            image: req.file.filename,
-            updatedAt: Date.now()
-        }, { new: true });
-
-        // Check if the post was not found
-        if (!updatedPost) {
-            return res.status(404).send("Post not found");
-        }
-
-        // Redirect to the updated post or handle it as needed
-        res.redirect(`/edit-post/${req.params.id}`);
-    } catch (error) {
-        console.log(error);
-        res.status(500).send("Internal Server Error");
-    }
-});
+    router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req, res) => {
+      try {
+          // Check if req.file is undefined
+          const result = await cloudinary.uploader.upload(req.file.path)
+          if (!req.file) {
+              return res.status(400).send("No file uploaded");
+          }
+  
+          // Find the post by ID and update its properties
+          const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
+              title: req.body.title,
+              body: req.body.body,
+              cover: result.secure_url, // Assuming your file has a 'filename' property
+              updatedAt: Date.now()
+          }, { new: true });
+  
+          // Check if the post was not found
+          if (!updatedPost) {
+              return res.status(404).send("Post not found");
+          }
+  
+          // Redirect to the updated post or handle it as needed
+          res.redirect(`/edit-post/${req.params.id}`);
+      } catch (error) {
+          console.log(error);
+          res.status(500).send("Internal Server Error");
+      } 
+  });
+  
 
   router.post('/register', async (req, res) => {
     try {

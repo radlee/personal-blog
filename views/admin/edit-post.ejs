@@ -25,11 +25,11 @@
     <br />
     <label for="title"><b>Change Cover Image</b></label> <br />
     <br />
-    <input class="form-control form-control-lg" type="file" name="image" accept="image/*" required>
+    <input class="form-control form-control-lg" type="file" name="cover" accept="image/*" required>
     
     <br />
     <!-- Display the current image if available -->
-    <% if (data.image) { %>
+    <% if (data.cover) { %>
         <img src="<%= data.cover %>" alt="Current Image" style="max-width: 100%;">
     <% } %>
 
