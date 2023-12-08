@@ -4,7 +4,7 @@
     <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">
       <h1 class="author_heading"><span id="red">rad</span>blok</h1>
     </a>
-    <p class="author__body">Agile Full Stack MERN 👨‍💻 </p>
+    <p class="author__body">Online Platform for Publishing Written Content</p>
 </div>
 
 <!-- <img src="/img/hero.webp" alt="gscc" class="hero-image" width="1920" height="1080"> -->
@@ -12,7 +12,7 @@
     <section class="articles">
     <hr />
     <h3 class="articles__heading"><span >Latest Posts</span></h3>
-
+    <hr />
     <% if (data != '') { %>
 
         <% data.forEach((post, index) => { %>

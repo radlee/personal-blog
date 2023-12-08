@@ -20,3 +20,13 @@ document.addEventListener('DOMContentLoaded', function(){
         this.setAttribute('aria-expanded', 'false');
     })
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+    const menuIcon = document.querySelector('.menu-icon');
+    const headerNav = document.querySelector('.header__nav');
+  
+    menuIcon.addEventListener('click', function () {
+      headerNav.classList.toggle('menu-visible');
+    });
+  });
+  
