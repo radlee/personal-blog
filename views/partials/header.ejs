@@ -2,6 +2,12 @@
 <style>
   /* ... Your existing styles ... */
 
+  #navbarcontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   #navbarcontainer ul {
     list-style-type: none;
     margin: 0;
@@ -31,7 +37,7 @@
     text-decoration: none;
     font-size: 1rem;
     border-bottom: 1px solid #000;
-    background: #fff;
+    /* background: #fff; */
     margin-right: 10px; /* Add right margin to the links */
   }
 
@@ -51,13 +57,12 @@
     top: 0.8rem;
   }
 
-  #navbarcontainer.menu-open .icon .fa-bars {
-    display: none; /* Hide menu icon when menu is open */
-  }
-
+  #navbarcontainer.menu-open .icon .fa-bars,
   #navbarcontainer.menu-open .icon .fa-times-circle {
-    display: block; /* Show close icon when menu is open */
-    left: 10px; /* Adjust the position to match the menu icon */
+    display: block; /* Show both icons when the menu is open */
+    position: fixed;
+    right: 10px;
+    top: 10px;
   }
 
   #navbarcontainer ul.menu-open .icon:hover {
@@ -71,38 +76,31 @@
   .icon {
     /* Add your custom styling for the menu icon here */
     padding: 10px;
-    background: #fff;
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
     transition: background 0.3s ease; /* Smoother background transition */
   }
 
-  .icon:hover {
-    background: #ddd; /* Add your custom hover background color for the menu icon */
-  }
-
   .searchBtn {
     /* Add your custom styling for the search button here */
     padding: 10px;
-    background: #fff;
     border: none;
     font-size: 1rem;
     cursor: pointer;
   }
 
-  .searchBtn:hover {
-    background: #ddd; /* Add your custom hover background color for the search button */
-  }
-</style>
 
+
+</style>
+<br />
 <nav>
   <div id="navbarcontainer">
     <button class="icon" onclick="toggleMenu()">
-        <i class="fa fa-bars"></i>
-        <i class="fa fa-times-circle"></i>
-        <span></span>
-      </button>
+      <i class="fa fa-bars"></i>
+      <i class="fa fa-times-circle"></i>
+      <span></span>
+    </button>
     <ul>
       <li><a href="/" class="active"><span id="red">rad</span>Blok</a></li>
       <li><a href="/dashboard">Dashboard</a></li>
@@ -118,6 +116,7 @@
         </button>
       </li>
     </ul>
+   
   </div>
 </nav>
 
@@ -129,6 +128,9 @@
     // Hide close icon and show menu icon
     menuIcon.style.display = 'block';
     closeIcon.style.display = 'none';
+
+
+    
   });
 
   function toggleMenu() {
@@ -140,55 +142,15 @@
     if (body.classList.contains('menu-open')) {
       navLinks.style.maxHeight = '0';
       body.classList.remove('menu-open');
-      closeIcon.style.display = 'none'; // Hide close icon when menu is closed
-      menuIcon.style.display = 'block'; // Show menu icon when menu is closed
+      closeIcon.style.display = 'none'; // Hide close icon when the menu is closed
+      menuIcon.style.display = 'block'; // Show the menu icon when the menu is closed
     } else {
       navLinks.style.maxHeight = '500px'; // Adjust this value based on your content height
       body.classList.add('menu-open');
-      closeIcon.style.display = 'block'; // Show close icon when menu is open
-      menuIcon.style.display = 'none'; // Hide menu icon when menu is open
+      closeIcon.style.display = 'block'; // Show the close icon when the menu is open
+      menuIcon.style.display = 'none'; // Hide the menu icon when the menu is open
     }
   }
-</script>
 
-<script>
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  const body = document.body;
 
-  darkModeToggle.addEventListener('change', () => {
-    body.classList.toggle('dark-mode');
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const darkModeToggle = document.getElementById('darkModeToggle');
-
-    // Check the user's preference for dark mode from localStorage
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-
-    // Set initial dark mode state based on user preference
-    setDarkMode(isDarkMode);
-
-    // Listen for the toggle button change event
-    darkModeToggle.addEventListener('change', function () {
-      const isDarkModeEnabled = darkModeToggle.checked;
-      setDarkMode(isDarkModeEnabled);
-
-      // Save user preference to localStorage
-      localStorage.setItem('darkMode', isDarkModeEnabled);
-    });
-
-    function setDarkMode(enableDarkMode) {
-      const root = document.documentElement;
-
-      // Set CSS variables for dark mode
-      root.style.setProperty('--background-color', enableDarkMode ? '#1c1c1c' : '#ffffff');
-      root.style.setProperty('--text-color', enableDarkMode ? '#ffffff' : '#1c1c1c');
-      // Add more variables as needed
-
-      // Set the toggle button state
-      darkModeToggle.checked = enableDarkMode;
-    }
-  });
 </script>

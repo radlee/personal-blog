@@ -117,7 +117,9 @@ img {
   "menu menu";
   padding-top: 10px;
 }
-
+nav {
+  padding-top: 20px;
+}
 @media only screen and (min-width: 768px) {
   .header {
     grid-template-columns: auto 1fr auto;
@@ -453,6 +455,12 @@ a:hover {
     font-size: 90px !important;
   }
 
+  #navbarcontainer ul {
+ 
+    margin-bottom: -117px !important;
+
+}
+
 .article-wrapper figure {
     width: 75%;
 }
@@ -506,7 +514,7 @@ body {
   color: var(--dark-gray);
 }
 
-.article-body, .article-border {
+.article-body, .article-border, .icon {
   border-color: var(--dark-border);
 }
 
@@ -538,7 +546,7 @@ a {
   border: 2px solid var(--dark-background);
 }
 
-.author {
+.author, .icon {
   background-color: var(--dark-background);
   color: var(--dark-text);
 }
