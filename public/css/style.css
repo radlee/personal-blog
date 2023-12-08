@@ -40,6 +40,10 @@ h1 { font-size: var(--font-size-xl); }
 h2 { font-size: var(--font-size-lg); }
 h3 { font-size: var(--font-size-md); }
 
+.author_heading {
+  font-size: 111px !important;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
