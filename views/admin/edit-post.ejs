@@ -30,7 +30,7 @@
     <br />
     <!-- Display the current image if available -->
     <% if (data.image) { %>
-        <img src="<%= '/uploads/' + data.image %>" alt="Current Image" style="max-width: 100%;">
+        <img src="<%= data.cover %>" alt="Current Image" style="max-width: 100%;">
     <% } %>
 
     <input type="hidden" id="quill-content" name="body">
