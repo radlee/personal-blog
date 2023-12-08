@@ -4,11 +4,8 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const methodOverride = require('method-override');
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
-const multer = require('multer');
-const app = express();
 const cloudinary = require('../utils/cloudinary')
 const upload = require('../utils/multer')
 
