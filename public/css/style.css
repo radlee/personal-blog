@@ -124,6 +124,7 @@ img {
     grid-template-areas: 
     "logo menu button";
   }
+
 }
 
 .header__logo {
@@ -259,6 +260,7 @@ img {
     flex-direction: row;
     align-items: center;
   }
+ 
 
   .article-list__date {
     text-align: right;
@@ -445,6 +447,10 @@ a:hover {
 @media (max-width: 768px) {
   .article-wrapper {
     grid-template-columns: 1fr; /* Single column for smaller screens */
+  }
+
+  .author_heading {
+    font-size: 90px !important;
   }
 
 .article-wrapper figure {
