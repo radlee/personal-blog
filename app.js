@@ -9,6 +9,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const moment = require('moment');
 const path = require('path');
+const flash = require('express-flash');
 
 // Import other required files and models
 const connectDB = require('./server/config/db');
@@ -56,6 +57,7 @@ app.locals.isActiveRoute = isActiveRoute;
 
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(flash());
 
 // Define your routes
 app.use('/', require('./server/routes/main'));

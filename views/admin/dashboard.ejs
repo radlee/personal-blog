@@ -1,7 +1,16 @@
+<div class="flash-alert">
+    <% if ( messages.success ) { %>
+      <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
+    <% } %>
+    <% if ( messages.error ) { %>
+      <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
+    <% } %>
+  </div>
 <div class="admin-title">
     <h2>Manage Blogs</h2>
     <a href="/add-post" class="button"> + Add New Blog Post</a>
 </div>
+
 
 <table class="admin-posts">
     <thead>

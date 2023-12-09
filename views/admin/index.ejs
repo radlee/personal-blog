@@ -1,5 +1,12 @@
 <h3>Sign In</h3>
-
+<div class="flash-alert">
+  <% if ( messages.success ) { %>
+    <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
+  <% } %>
+  <% if ( messages.error ) { %>
+    <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
+  <% } %>
+</div>
 <form action="/admin" method="post">
 
     <label for="username"><b>Username</b></label>
@@ -9,6 +16,7 @@
     <input type="password" placeholder="Enter Password" name="password">
 
     <input type="submit" value="Login" class="btn">
+    <p>Do not have an account? <a href="/register" class="button">Register. </a></p>
 
 </form>
 

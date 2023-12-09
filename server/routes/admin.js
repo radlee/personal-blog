@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken');
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 const cloudinary = require('../utils/cloudinary')
-const upload = require('../utils/multer')
+const upload = require('../utils/multer');
+
 
 router.get('/management', async (req, res) => {
   try {
@@ -27,7 +28,8 @@ const authMiddleware = async (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    req.flash( 'error', 'Unauthorized. Please Login or Register' );
+    return res.redirect('/admin')
   }
 
   try {
@@ -38,7 +40,8 @@ const authMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     console.log('Authentication error:', error);
-    res.status(401).json({ message: 'Unauthorized' });
+    req.flash( 'error', 'Unauthorized. Please Login or Register' );
+    return res.redirect('/admin')
   }
 };
 
@@ -46,7 +49,7 @@ router.get('/register', async (req, res) => {
     try {
       const locals = {
         title: 'Admin',
-        description: "Learning and Development Admin"
+        description: "Administration Registration"
       }
   
       res.render("admin/register", { locals, layout: adminLayout });
@@ -60,10 +63,10 @@ router.get('/admin', async (req, res) => {
     try {
       const locals = {
         title: 'Admin',
-        description: "Learning and Development Admin"
+        description: "Administration Login"
       }
   
-      res.render("admin/index", { locals, layout: adminLayout });
+      res.render("admin/index", { locals,  messages: req.flash(), layout: adminLayout });
 
     } catch (error) {
       console.log(error);
@@ -78,17 +81,20 @@ router.get('/admin', async (req, res) => {
         const user = await User.findOne( { username });
 
         if(!user) {
-          return res.status(401).json({ message: 'Invalid credentials' });
+          req.flash( 'error', 'Email and Password are Required' );
+          return res.redirect('/admin')
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if(!isPasswordValid) {
-          return res.status(401).json({ message: 'Invalid credentials' });
+          req.flash( 'error', 'Invalid credentials' );
+          return res.redirect('/admin')
         }
 
         const token = jwt.sign({ userId: user._id }, jwtSecret);
         res.cookie('token', token, { httpOnly: true });
+        req.flash( 'success', 'Logged In Successfully' );
         res.redirect('/dashboard');
       
     } catch (error) {
@@ -124,7 +130,7 @@ router.get('/admin', async (req, res) => {
 
       const data = await Post.find();
       res.render('admin/add-post', {
-        locals, layout: adminLayout
+        locals, layout: adminLayout, messages: req.flash(),
       })
     } catch (error) {
       console.log(error);
@@ -145,6 +151,7 @@ router.get('/admin', async (req, res) => {
       });
 
       await newPost.save();
+      req.flash( 'success', 'Post Added Successfully' );
       res.redirect('/dashboard');
     } catch (error) {
       console.log(error);
@@ -163,13 +170,12 @@ router.get('/admin', async (req, res) => {
         }
 
         const data = await Post.findOne({ _id: req.params.id })
-
-        console.log("Editing Data -- ", data)
      
         res.render('admin/edit-post', {
           locals,
           data,
-          layout: adminLayout
+          layout: adminLayout,
+          messages: req.flash(),
         });
   
       } catch (error) {
@@ -189,22 +195,26 @@ router.get('/admin', async (req, res) => {
           const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
               title: req.body.title,
               body: req.body.body,
-              cover: result.secure_url, // Assuming your file has a 'filename' property
+              cover: result.secure_url,
               updatedAt: Date.now()
           }, { new: true });
   
           // Check if the post was not found
           if (!updatedPost) {
-              return res.status(404).send("Post not found");
+            req.flash( 'error', 'Post not found' );
+              return res.redirect('/dashboard');
           }
+
+          req.flash( 'success', 'Post Updated Successfully' );
+          res.redirect('/dashboard');
   
-          // Redirect to the updated post or handle it as needed
-          res.redirect(`/edit-post/${req.params.id}`);
+          
       } catch (error) {
           console.log(error);
           res.status(500).send("Internal Server Error");
-      } 
+      }
   });
+  
   
 
   router.post('/register', async (req, res) => {
@@ -213,13 +223,17 @@ router.get('/admin', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         try {
-          const user = await User.create({ username, password: hashedPassword })
-          res.status(201).json({ message: 'User Created Successfully.', user })
+          await User.create({ username, password: hashedPassword })
+   
         } catch (error) {
           if(error.code === 11000) {
-            res.status(409).json({ message: 'User already in use.' })
-          }
-          res.status(500).json({ message: 'Internal Server Error.' })
+            // Toast Message
+            req.flash( 'error', 'User already Exists' );
+            res.redirect('/register');
+          } 
+          // Tost Message
+          req.flash( 'success', 'Registered Successfully' );
+          res.redirect('/dashboard');
         }
     } catch (error) {
       console.log(error);
@@ -229,6 +243,7 @@ router.get('/admin', async (req, res) => {
   router.delete('/delete-post/:id',authMiddleware, async (req, res) => {
     try {
       await Post.deleteOne( { _id: req.params.id });
+      req.flash( 'success', 'Post Deleted Successfully' );
       res.redirect('/dashboard');
     } catch (error) {
       console.log(error)
@@ -237,7 +252,7 @@ router.get('/admin', async (req, res) => {
 
     router.get('/logout', (req, res) => {
       res.clearCookie('token');
-
+      req.flash( 'success', 'Logged Out Successfully' );
       res.redirect('/')
     })
 

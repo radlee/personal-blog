@@ -12,6 +12,19 @@
   --border-radius: 10px;
 }
 
+.flash-alert {
+  text-align: center;
+  align-items: center;
+}
+
+.flash-error {
+  color: red;
+}
+
+.flash-success {
+  color: green;
+}
+
 .about {
   text-align: center;
 }
