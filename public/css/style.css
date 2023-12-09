@@ -240,11 +240,21 @@ nav {
 
 
 /* Home Article List */
-/* .articles__heading {
-  margin-top: 4rem;
-  color: #b30000;
-  font-weight: 400;
-} */
+.articles__heading {
+  margin-left: 35px;
+  font-weight: bold;
+}
+
+.authorspan {
+  color: #ff0909;
+}
+
+.latestspan {
+  border-left: 6px solid red;
+  color: #E4E4E4;
+  padding: 5px;
+  background-color: #000000;
+}
 
 .article-ul {
   list-style-type: none;
@@ -414,6 +424,31 @@ nav {
   font-family: 'Poppins';
   font-size: 35px;
 }
+
+
+.blur {
+  position: absolute;
+  width: 22rem;
+  height: 14rem;
+  border-radius: 50%;
+  background-color: #2f63d3;
+  filter: blur(72px);
+  /* position: fixed; */
+}
+
+
+.blur2 {
+  position: absolute;
+  width: 22rem;
+  height: 14rem;
+  border-radius: 50%;
+  background-color: #d32f2f;
+  filter: blur(72px);
+  /* position: fixed; */
+  margin-left: 970px;
+  margin-top: 80px;
+}
+
 
 /* Cards */
 

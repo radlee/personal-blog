@@ -1,5 +1,7 @@
 
 <div class="author">
+  <!-- <div class="blur" ></div>
+  <div class="blur2" ></div> -->
     <!-- <h1 class="author_heading">Standard Operating Procedures</h1> -->
     <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">
       <h1 class="author_heading"><span id="red">rad</span>blok</h1>
@@ -18,7 +20,7 @@
 
     <section class="articles">
     <hr />
-    <h3 class="articles__heading"><span >Latest Posts</span></h3>
+    <h3 class="articles__heading"><span class="latestspan" >Latest Posts</span></h3>
     <hr />
     <% if (data != '') { %>
 
@@ -43,7 +45,7 @@
                         </a>
                       </p>
                       <p class="author">
-                        @<%= post.author.username %>
+                        <span class="authorspan">@<%= post.author.username %></span>
                       </p>
                     </div>
                   </div>
