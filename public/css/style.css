@@ -454,6 +454,11 @@ a:hover {
   .author_heading {
     font-size: 90px !important;
   }
+  .img-thumbnail {
+    width: 128%;
+    margin-left: -34px;
+    height: auto;
+}
 
 
 
