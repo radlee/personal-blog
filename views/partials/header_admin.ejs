@@ -6,10 +6,18 @@
 
     <nav class="header__nav">
         <ul>
-            <li>
-                <a href="/dashboard" class=''>Dashboard</a>
-            </li>
+            <li><a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a></li>
+      <li><a href="/dashboard" class="<%= isActiveRoute('/dashboard', currentRoute) %>">Dashboard</a></li>
             <!-- Toggle button for dark mode -->
+            <% if (user) { %>
+                <!-- Show the following links only if the user is logged in -->
+                <li><a href="/logout">Logout</a></li>
+              <% } else { %>
+                <!-- Show login and register links when the user is not logged in -->
+                <li><a href="/admin">Login</a></li>
+                <li><a href="/register">Register</a></li>
+              <% } %>
+
     <div class="toggle-container">
         <label class="switch">
             <input type="checkbox" id="darkModeToggle">

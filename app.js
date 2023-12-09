@@ -10,6 +10,7 @@ const MongoStore = require('connect-mongo');
 const moment = require('moment');
 const path = require('path');
 const flash = require('express-flash');
+const mw = require('./server/middlewares/middleware');
 
 // Import other required files and models
 const connectDB = require('./server/config/db');
@@ -18,7 +19,7 @@ const { isActiveRoute } = require('./server/helpers/routeHelpers');
 // Create an Express application
 const app = express();
 app.locals.moment = moment;
-
+app.use(mw.setUserLocals);
 app.use(bodyparser.json({limit: '50mb'}));
 app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 

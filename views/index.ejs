@@ -1,20 +1,19 @@
 
-
 <div class="author">
-  
-  <div class="flash-alert">
-    <% if ( messages.success ) { %>
-      <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
-    <% } %>
-    <% if ( messages.error ) { %>
-      <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
-    <% } %>
-  </div>
-
+    <!-- <h1 class="author_heading">Standard Operating Procedures</h1> -->
     <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">
       <h1 class="author_heading"><span id="red">rad</span>blok</h1>
     </a>
     <p class="author__body">Online Platform for Publishing Written Content</p>
+</div>
+
+<div class="flash-alert">
+  <% if ( messages.success ) { %>
+    <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
+  <% } %>
+  <% if ( messages.error ) { %>
+    <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
+  <% } %>
 </div>
 
     <section class="articles">
@@ -34,19 +33,21 @@
 
                 </figure>
                 <div class="article-body">
-                  <h2><%= post.title %></h2>
+                  <h2 class="post-title"><%= post.title %></h2>
                   <hr />
                   <div class="date-author">
-                    <p class="date">
-                      <a href="/post/<%= post._id %>">
-                        <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
-                      </a>
-                    </p>
-                    <br />
-                    <p class="author">
-                      @<%= post.author.username %>
-                    </p>
+                    <div class="centered-info">
+                      <p class="date">
+                        <a href="/post/<%= post._id %>">
+                          <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
+                        </a>
+                      </p>
+                      <p class="author">
+                        @<%= post.author.username %>
+                      </p>
+                    </div>
                   </div>
+                  
                 </div>
               </div>
             </a>

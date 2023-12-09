@@ -12,6 +12,7 @@
   --border-radius: 10px;
 }
 
+
 .flash-alert {
   text-align: center;
   align-items: center;
@@ -56,7 +57,7 @@ body {
 
 a { color: var(--black); }
 h1 { font-size: var(--font-size-xl); }
-h2 { font-size: var(--font-size-lg); }
+h2 { font-size: var(--font-size-lg); text-align: center; }
 h3 { font-size: var(--font-size-md); }
 
 .author_heading {
@@ -360,6 +361,8 @@ nav {
 .img-thumbnail {
   height: 250px;
   width: auto;
+  border-radius: 8px;
+  overflow: hidden; /* Ensure the border-radius is applied properly */
 }
 
 
@@ -403,7 +406,14 @@ nav {
   color: var(--black);
 }
 
+.image-container {
+  margin-right: 10px; /* Adjust the spacing between the image and the article body */
+}
 
+.post-title {
+  font-family: 'Poppins';
+  font-size: 35px;
+}
 
 /* Cards */
 
@@ -456,6 +466,8 @@ a:hover {
 
 .article-border {
   border-bottom: 1px solid black;
+  margin: 10px;
+  padding: 10px;
 }
 
 /* Responsive styles for smaller screens */
@@ -489,10 +501,21 @@ a:hover {
 
 .date-author {
   display: flex;
-  justify-content: space-between; /* Align date on the left, author on the right */
-  align-items: center; /* Center items vertically */
-  margin-top: 10px; /* Add some space above the date and author */
+  justify-content: center;
+  /* justify-content: space-between; */
+  /* margin-top: 10px;  */
+  align-items: center;
+  text-align: center;
 }
+
+.centered-info {
+  /* Add additional styling if needed */
+}
+
+.date, .author {
+  /* Style your date and author text if needed */
+}
+
 
 .date-author .date {
   margin-right: auto; /* Push the date to the left edge */

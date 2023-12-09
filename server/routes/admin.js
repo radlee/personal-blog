@@ -25,25 +25,31 @@ router.get('/management', async (req, res) => {
 });
 
 const authMiddleware = async (req, res, next) => {
-  const token = req.cookies.token;
-
-  if (!token) {
-    req.flash( 'error', 'Unauthorized. Please Login or Register' );
-    return res.redirect('/admin')
-  }
-
   try {
+    const token = req.cookies.token;
+
+    if (!token) {
+      req.flash('error', 'Unauthorized. Please Login or Register');
+      return res.redirect('/admin');
+    }
+
     const decoded = jwt.verify(token, jwtSecret);
+    const user = await User.findById(decoded.userId).select('-password');
 
-    req.user = await User.findById(decoded.userId).select('-password');
+    if (!user) {
+      req.flash('error', 'Unauthorized. Please Login or Register');
+      return res.redirect('/admin');
+    }
 
+    res.locals.user = user; // Make user data available in locals
     next();
   } catch (error) {
     console.log('Authentication error:', error);
-    req.flash( 'error', 'Unauthorized. Please Login or Register' );
-    return res.redirect('/admin')
+    req.flash('error', 'Unauthorized. Please Login or Register');
+    return res.redirect('/admin');
   }
 };
+
 
 router.get('/register', async (req, res) => {
     try {
@@ -103,23 +109,24 @@ router.get('/admin', async (req, res) => {
   });
 
   router.get('/dashboard', authMiddleware, async (req, res) => {
-
     try {
       const locals = {
         title: 'Dashboard',
-        description: 'radBlok'
-      }
-
+        description: 'radBlok',
+        user: res.locals.user, // Use user data from locals
+      };
+  
       const data = await Post.find();
       res.render('admin/dashboard', {
         locals,
         data,
-        layout: adminLayout
+        layout: adminLayout,
       });
     } catch (error) {
       console.log(error);
     }
   });
+  
 
   router.get('/add-post',authMiddleware, async (req, res) => {
     try {
@@ -252,9 +259,9 @@ router.get('/admin', async (req, res) => {
 
     router.get('/logout', (req, res) => {
       res.clearCookie('token');
-      req.flash( 'success', 'Logged Out Successfully' );
-      res.redirect('/')
-    })
+      req.flash('success', 'Logged Out Successfully');
+      res.redirect('/admin'); // Redirect to the home page or login page
+    });
 
 
 module.exports = router;
