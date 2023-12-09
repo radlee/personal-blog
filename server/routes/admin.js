@@ -154,7 +154,7 @@ router.get('/admin', async (req, res) => {
         title: req.body.title,
         body: req.body.body,
         cover: result.secure_url,
-        author: req.user._id // Set the author field with the current user's _id
+        author: res.locals.user._id // Set the author field with the current user's _id
       });
 
       await newPost.save();
