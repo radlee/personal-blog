@@ -582,7 +582,11 @@ body {
   border-color: var(--dark-border);
 }
 
-
+.container {
+  max-width: 982px !important;
+  margin: 0 auto !important;
+  padding: 0 10px !important;
+}
 
 a {
   color: var(--dark-text);
