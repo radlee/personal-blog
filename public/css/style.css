@@ -504,8 +504,13 @@ a:hover {
   }
 
   .author_heading {
-    font-size: 90px !important;
+    font-size: 85px !important;
   }
+  .header-ul li {
+    margin: 24px 0 !important;
+    padding-left: 0px !important;
+    padding-bottom: 32px !important;
+}
   .img-thumbnail {
     width: 128%;
     margin-left: -34px;
@@ -574,6 +579,12 @@ a {
   color: var(--dark-background);
 }
 
+.banner {
+  height: 5px; /* Adjust the height as needed */
+  background: linear-gradient(to right, #FF0000, #000000); /* Set the background color as needed */
+  /* Add any other styles you want for the banner */
+}
+
 .header-ul {
   display: flex;
   justify-content: center;
@@ -589,11 +600,7 @@ a {
 }
 
 .header-ul li {
-  margin: 14px 0;
-  padding-left: 16px;
-  padding-right: 16px;
   padding-top: 16px;
-  padding-bottom: 32px;
 }
 
 .toggle-container {
