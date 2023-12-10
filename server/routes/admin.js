@@ -168,59 +168,76 @@ router.get('/admin', async (req, res) => {
   });
 
 
-  router.get('/edit-post/:id',authMiddleware, async (req, res) => {
-      try {
-
+  router.get('/edit-post/:id', authMiddleware, async (req, res) => {
+    try {
         const locals = {
-          title: 'Edit a Post',
-          description: 'Make Updated Changes to the post'
+            title: 'Edit a Post',
+            description: 'Make Updated Changes to the post'
         }
 
-        const data = await Post.findOne({ _id: req.params.id })
-     
-        res.render('admin/edit-post', {
-          locals,
-          data,
-          layout: adminLayout,
-          messages: req.flash(),
-        });
-  
-      } catch (error) {
+        const data = await Post.findOne({ _id: req.params.id });
+
+        // Check if the user is the author of the post
+        if (data.author.equals(res.locals.user._id)) {
+            res.render('admin/edit-post', {
+                locals,
+                data,
+                layout: adminLayout,
+                messages: req.flash(),
+            });
+        } else {
+            // User is not the author, show an error or redirect as needed
+            req.flash('error', 'You are not authorized to edit this post');
+            res.redirect('/dashboard');
+        }
+
+    } catch (error) {
         console.log(error);
-      }
-    })
+    }
+});
 
-    router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req, res) => {
-      try {
-          // Check if req.file is undefined
-          const result = await cloudinary.uploader.upload(req.file.path)
-          if (!req.file) {
-              return res.status(400).send("No file uploaded");
-          }
-  
-          // Find the post by ID and update its properties
-          const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
-              title: req.body.title,
-              body: req.body.body,
-              cover: result.secure_url,
-              updatedAt: Date.now()
-          }, { new: true });
-  
-          // Check if the post was not found
-          if (!updatedPost) {
-            req.flash( 'error', 'Post not found' );
-              return res.redirect('/dashboard');
-          }
 
-          req.flash( 'success', 'Post Updated Successfully' );
-          res.redirect('/dashboard');
-  
-          
-      } catch (error) {
-          console.log(error);
-          res.status(500).send("Internal Server Error");
+router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req, res) => {
+  try {
+      // Check if req.file is undefined
+      if (!req.file) {
+          return res.status(400).send("No file uploaded");
       }
-  });
+
+      const result = await cloudinary.uploader.upload(req.file.path);
+
+      // Find the post by ID
+      const post = await Post.findById(req.params.id);
+
+      // Check if the user is the author of the post
+      if (!post || !post.author.equals(res.locals.user._id)) {
+          req.flash('error', 'You are not authorized to edit this post');
+          return res.redirect('/dashboard');
+      }
+
+      // Update the post's properties
+      const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
+          title: req.body.title,
+          body: req.body.body,
+          cover: result.secure_url,
+          updatedAt: Date.now()
+      }, { new: true });
+
+      // Check if the post was not found
+      if (!updatedPost) {
+          req.flash('error', 'Post not found');
+          return res.redirect('/dashboard');
+      }
+
+      req.flash('success', 'Post Updated Successfully');
+      res.redirect('/dashboard');
+
+  } catch (error) {
+      console.log(error);
+      res.status(500).send("Internal Server Error");
+  }
+});
+
   
   
 
