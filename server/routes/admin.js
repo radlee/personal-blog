@@ -200,22 +200,27 @@ router.get('/admin', async (req, res) => {
 router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req, res) => {
   try {
       // Check if req.file is undefined
+      const result = await cloudinary.uploader.upload(req.file.path)
       if (!req.file) {
           return res.status(400).send("No file uploaded");
       }
 
-      const result = await cloudinary.uploader.upload(req.file.path);
-
       // Find the post by ID
       const post = await Post.findById(req.params.id);
 
-      // Check if the user is the author of the post
-      if (!post || !post.author.equals(res.locals.user._id)) {
+      // Check if the post was not found
+      if (!post) {
+          req.flash('error', 'Post not found');
+          return res.redirect('/dashboard');
+      }
+
+      // Check if the post belongs to the authenticated user
+      if (post.author.toString() !== res.locals.user._id.toString()) {
           req.flash('error', 'You are not authorized to edit this post');
           return res.redirect('/dashboard');
       }
 
-      // Update the post's properties
+      // Update the post properties
       const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
           title: req.body.title,
           body: req.body.body,
@@ -231,12 +236,12 @@ router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req,
 
       req.flash('success', 'Post Updated Successfully');
       res.redirect('/dashboard');
-
   } catch (error) {
       console.log(error);
       res.status(500).send("Internal Server Error");
   }
 });
+
 
   
   
@@ -264,15 +269,34 @@ router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req,
     }
   });
     
-  router.delete('/delete-post/:id',authMiddleware, async (req, res) => {
+  router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
     try {
-      await Post.deleteOne( { _id: req.params.id });
-      req.flash( 'success', 'Post Deleted Successfully' );
-      res.redirect('/dashboard');
+        // Find the post by ID
+        const post = await Post.findById(req.params.id);
+
+        // Check if the post was not found
+        if (!post) {
+            req.flash('error', 'Post not found');
+            return res.redirect('/dashboard');
+        }
+
+        // Check if the post belongs to the authenticated user
+        if (post.author.toString() !== res.locals.user._id.toString()) {
+            req.flash('error', 'You are not authorized to delete this post');
+            return res.redirect('/dashboard');
+        }
+
+        // Delete the post
+        await Post.deleteOne({ _id: req.params.id });
+
+        req.flash('success', 'Post Deleted Successfully');
+        res.redirect('/dashboard');
     } catch (error) {
-      console.log(error)
+        console.log(error);
+        res.status(500).send("Internal Server Error");
     }
-  });
+});
+
 
     router.get('/logout', (req, res) => {
       res.clearCookie('token');
