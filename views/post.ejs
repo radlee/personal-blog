@@ -1,20 +1,45 @@
-<a href="/edit-post/<%= data._id %>" class="button"> + Edit Post</a>
+<style>
+    .container {
+        text-align: center;
+        padding: 20px;
+    }
 
-<img src="<%= data.cover %>" alt="Current Image" style="max-width: 100%;">
+    .button.edit-button {
+        display: inline-block;
+        padding: 8px 16px; /* Adjusted size */
+        text-decoration: none;
+        color: #000;
+        border: 2px solid #000;
+        border-radius: 0; /* Removed rounded corners */
+        margin-top: 10px;
+        margin-bottom: 10px; /* Added margin bottom */
+    }
+</style>
 
-<br />
-<h1><%= data.title %></h1>
+<div class="container">
+    <a href="/edit-post/<%= data._id %>" class="button edit-button">Edit Post</a>
 
-<article class="article"><%- data.body.replace(/<a /g, '<a class="blog-link" ') %></article>
+    <img src="<%= data.cover %>" alt="Current Image">
 
-<div id="disqus_thread"></div>
+    <br />
+    <h1><%= data.title %></h1>
+
+    <article class="article">
+        <%- data.body.replace(/<a /g, '<a class="blog-link" ') %>
+    </article>
+
+    <div id="disqus_thread"></div>
+</div>
+
+
+
 <script>
- 
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://https-lolito-onrender-com.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-lolito-onrender-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
+
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
