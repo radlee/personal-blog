@@ -531,17 +531,6 @@ a:hover {
   text-align: left !important;
 }
 
-
-.date-author .date {
-  margin-right: auto; /* Push the date to the left edge */
-  color: rgb(170, 170, 170); /* Use the gray color for the date */
-}
-
-.date-author .author {
-  font-weight: bold; /* Make author text bold */
-  color: rgb(170, 170, 170); /* Use the gray color for the author */
-}
-
 .article-body hr {
   margin: 10px 0; /* Add space around the hr element */
 }
