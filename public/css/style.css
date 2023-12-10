@@ -507,9 +507,9 @@ a:hover {
     font-size: 85px !important;
   }
   .header-ul li {
-    margin: 24px 0 !important;
+    margin: 0 !important;
     padding-left: 0px !important;
-    padding-bottom: 32px !important;
+    padding-bottom: 0;
 }
   .img-thumbnail {
     width: 128%;
