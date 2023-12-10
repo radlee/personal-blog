@@ -1,16 +1,15 @@
 <div class="flash-alert">
-    <% if ( messages.success ) { %>
-      <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
+    <% if (messages.success) { %>
+        <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
     <% } %>
-    <% if ( messages.error ) { %>
-      <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
+    <% if (messages.error) { %>
+        <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
     <% } %>
-  </div>
+</div>
 <div class="admin-title">
     <h2>Manage Blogs</h2>
     <a href="/add-post" class="button"> + Add New Blog Post</a>
 </div>
-
 
 <table class="admin-posts">
     <thead>
@@ -28,13 +27,16 @@
                     </a>
                 </td>
                 <td class="admin-post-controls">
-                    <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+                    <% if (post.author.equals(user._id)) { %>
+                        <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+                    <% } %>
                 </td>
                 <td class="admin-post-controls">
-                    
-                    <form action="/delete-post/<%= post._id %>?_method=DELETE" method="post">
-                        <input type="submit" value="Delete" class="btn-delete btn">
-                    </form>
+                    <% if (post.author.equals(user._id)) { %>
+                        <form action="/delete-post/<%= post._id %>?_method=DELETE" method="post">
+                            <input type="submit" value="Delete" class="btn-delete btn">
+                        </form>
+                    <% } %>
                 </td>
             </tr>
         <% }) %>

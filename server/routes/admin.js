@@ -110,22 +110,25 @@ router.get('/admin', async (req, res) => {
 
   router.get('/dashboard', authMiddleware, async (req, res) => {
     try {
-      const locals = {
-        title: 'Dashboard',
-        description: 'radBlok',
-        user: res.locals.user, // Use user data from locals
-      };
-  
-      const data = await Post.find();
-      res.render('admin/dashboard', {
-        locals,
-        data,
-        layout: adminLayout,
-      });
+        const locals = {
+            title: 'Dashboard',
+            description: 'radBlok',
+            user: res.locals.user,
+        };
+
+        // Sort posts by createdAt in descending order (most recent first)
+        const data = await Post.find().sort({ createdAt: -1 });
+
+        res.render('admin/dashboard', {
+            locals,
+            data,
+            layout: adminLayout,
+        });
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  });
+});
+
   
 
   router.get('/add-post',authMiddleware, async (req, res) => {

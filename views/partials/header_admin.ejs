@@ -6,7 +6,7 @@
 
     <nav class="header__nav">
         <ul>
-            <li><a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a></li>
+            <li><a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Blogs</a></li>
       <li><a href="/dashboard" class="<%= isActiveRoute('/dashboard', currentRoute) %>">Dashboard</a></li>
             <!-- Toggle button for dark mode -->
             <% if (user) { %>
@@ -23,7 +23,7 @@
             <input type="checkbox" id="darkModeToggle">
             <span class="slider"></span>
         </label>
-        <span class="toggle-label">Dark Mode</span>
+        <span class="toggle-label"></span>
     </div>
 
         </ul>
