@@ -1,8 +1,14 @@
+<style>
 
+.container {
+  max-width: 982px !important;
+  margin: 0 auto !important;
+  padding: 0 10px !important;
+}
+
+</style>
 <div class="author">
-  <!-- <div class="blur" ></div>
-  <div class="blur2" ></div> -->
-    <!-- <h1 class="author_heading">Standard Operating Procedures</h1> -->
+ 
     <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">
       <h1 class="author_heading"><span id="red">rad</span>blok</h1>
     </a>
@@ -18,7 +24,7 @@
   <% } %>
 </div>
 
-    <section class="articles">
+    <section class="articles container">
     <hr />
     <h3 class="articles__heading"><span class="latestspan" >Latest Posts</span></h3>
     <hr />

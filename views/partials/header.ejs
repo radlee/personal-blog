@@ -49,7 +49,7 @@
     display: none;
   }
 
-  #navbarcontainer ul.menu-open .icon .fa-times-circle {
+  #navbarcontainer ul.menu-open .icon .fa-times-circle-o {
     display: none; /* Hide close icon by default */
     position: fixed;
     z-index: 1000;
@@ -58,7 +58,7 @@
   }
 
   #navbarcontainer.menu-open .icon .fa-bars,
-  #navbarcontainer.menu-open .icon .fa-times-circle {
+  #navbarcontainer.menu-open .icon .fa-times-circle-o {
     display: block; /* Show both icons when the menu is open */
     position: fixed;
     right: 10px;
@@ -90,6 +90,10 @@
     cursor: pointer;
   }
 
+  .fa-times-circle-o  {
+    color: red;
+  }
+
 
 
 </style>
@@ -97,11 +101,11 @@
 <nav>
   <div id="navbarcontainer">
     <button class="icon" onclick="toggleMenu()">
-      <i class="fa fa-bars"></i>
-      <i class="fa fa-times-circle"></i>
+      <i class="fa fa-bars fa-2x"></i>
+      <i class="fa fa-times-circle-o fa-2x"></i>
       <span></span>
     </button>
-    <ul>
+    <ul class="header-ul">
       <li><a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a></li>
 <li><a href="/dashboard" class="<%= isActiveRoute('/dashboard', currentRoute) %>">Dashboard</a></li>
 
@@ -122,7 +126,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const menuIcon = document.querySelector('.icon .fa-bars');
-    const closeIcon = document.querySelector('.icon .fa-times-circle');
+    const closeIcon = document.querySelector('.icon .fa-times-circle-o');
 
     // Hide close icon and show menu icon
     menuIcon.style.display = 'block';
@@ -135,7 +139,7 @@
   function toggleMenu() {
     const navLinks = document.querySelector('#navbarcontainer ul');
     const body = document.querySelector('body');
-    const closeIcon = document.querySelector('.icon .fa-times-circle');
+    const closeIcon = document.querySelector('.icon .fa-times-circle-o');
     const menuIcon = document.querySelector('.icon .fa-bars');
 
     if (body.classList.contains('menu-open')) {
