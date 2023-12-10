@@ -57,7 +57,7 @@ body {
 
 a { color: var(--black); }
 h1 { font-size: var(--font-size-xl); }
-h2 { font-size: var(--font-size-lg); text-align: center; }
+h2 { font-size: var(--font-size-lg); }
 h3 { font-size: var(--font-size-md); }
 
 .author_heading {
@@ -211,7 +211,7 @@ nav {
 /* Author - HomePage */
 .author {
   padding: 10px 0;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .author__heading {
@@ -528,19 +528,7 @@ a:hover {
 
 .date-author {
   display: flex;
-  justify-content: center;
-  /* justify-content: space-between; */
-  /* margin-top: 10px;  */
-  align-items: center;
-  text-align: center;
-}
-
-.centered-info {
-  /* Add additional styling if needed */
-}
-
-.date, .author {
-  /* Style your date and author text if needed */
+  text-align: left !important;
 }
 
 
