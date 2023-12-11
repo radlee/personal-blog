@@ -25,13 +25,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Poppins';
-  src: url('../fonts/Poppins/Poppins-Black.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-
 
 .flash-alert {
   text-align: center;
