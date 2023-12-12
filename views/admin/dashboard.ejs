@@ -1,3 +1,7 @@
+<!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <div class="flash-alert">
     <% if (messages.success) { %>
         <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
@@ -33,8 +37,9 @@
                 </td>
                 <td class="admin-post-controls">
                     <% if (post.author.equals(user._id)) { %>
-                        <form action="/delete-post/<%= post._id %>?_method=DELETE" method="post">
-                            <input type="submit" value="Delete" class="btn-delete btn">
+                        <form id="deleteForm_<%= post._id %>" action="/delete-post/<%= post._id %>?_method=DELETE" method="post">
+                            <!-- Add a class to the submit button to target it in JavaScript -->
+                            <input type="submit" value="Delete" class="btn-delete btn delete-btn">
                         </form>
                     <% } %>
                 </td>
@@ -43,4 +48,28 @@
     </tbody>
 </table>
 
+<script>
+    // Use a class to target delete buttons
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            
+            const postId = this.closest('form').id.split('_')[1]; // Extract the post ID
 
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Use the post-specific form ID
+                    document.getElementById(`deleteForm_${postId}`).submit();
+                }
+            });
+        });
+    });
+</script>
