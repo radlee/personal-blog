@@ -254,7 +254,10 @@ nav {
 }
 
 .authorspan {
-  color: #ff0909;
+  color: white;
+  background-color: #ff0909;
+  padding: 5px;
+  font-size: 13px;
 }
 
 .latestspan {
