@@ -180,8 +180,10 @@ router.get('/admin', async (req, res) => {
 
         const data = await Post.findOne({ _id: req.params.id });
 
+        
+
         // Check if the user is the author of the post
-        if (data.author.equals(res.locals.user._id)) {
+        if (data.author.toString() === res.locals.user._id.toString()) {
             res.render('admin/edit-post', {
                 locals,
                 data,
@@ -200,35 +202,44 @@ router.get('/admin', async (req, res) => {
 });
 
 
+
+
 router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req, res) => {
-    try {
-        // Find the post by ID
-        const post = await Post.findById(req.params.id);
+  try {
+      // Find the post by ID
+      const post = await Post.findById(req.params.id);
 
-        // Check if req.file is undefined or empty
-        const result = req.file ? await cloudinary.uploader.upload(req.file.path) : null;
+      // Check if req.file is undefined or empty
+      const result = req.file ? await cloudinary.uploader.upload(req.file.path) : null;
 
-        // Update the post properties
-        const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
-            title: req.body.title,
-            body: req.body.body,
-            cover: result ? result.secure_url : post.cover, // Use the existing cover if no new file is uploaded
-            updatedAt: Date.now(),
-        }, { new: true });
+      // Delete the existing image from Cloudinary if a new image is uploaded
+      if (result && post.cover) {
+          const publicId = post.cover.match(/\/([^\/]+)\.(\w+)(\?.*)?$/)[1];
+          await cloudinary.uploader.destroy(publicId);
+      }
 
-        // Check if the post was not found
-        if (!updatedPost) {
-            req.flash('error', 'Post not found');
-            return res.redirect('/dashboard');
-        }
+      // Update the post properties
+      const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
+          title: req.body.title,
+          body: req.body.body,
+          cover: result ? result.secure_url : post.cover, // Use the existing cover if no new file is uploaded
+          updatedAt: Date.now(),
+      }, { new: true });
 
-        req.flash('success', 'Post Updated Successfully');
-        res.redirect('/dashboard');
-    } catch (error) {
-        console.log(error);
-        res.status(500).send("Internal Server Error");
-    }
+      // Check if the post was not found
+      if (!updatedPost) {
+          req.flash('error', 'Post not found');
+          return res.redirect('/dashboard');
+      }
+
+      req.flash('success', 'Post Updated Successfully');
+      res.redirect('/dashboard');
+  } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal Server Error');
+  }
 });
+
 
 
 
@@ -275,14 +286,20 @@ router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req,
             return res.redirect('/dashboard');
         }
 
-        // Delete the post
+        // Delete the post from Cloudinary
+        if (post.cover) {
+            const publicId = post.cover.match(/\/([^\/]+)\.(\w+)(\?.*)?$/)[1];
+            await cloudinary.uploader.destroy(publicId);
+        }
+
+        // Delete the post from the database
         await Post.deleteOne({ _id: req.params.id });
 
         req.flash('success', 'Post Deleted Successfully');
         res.redirect('/dashboard');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send('Internal Server Error');
     }
 });
 

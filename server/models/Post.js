@@ -14,6 +14,9 @@ const PostSchema = new Schema({
     cover: {
         type: String,
     },
+    cloudinary_id: {
+        type: String,
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

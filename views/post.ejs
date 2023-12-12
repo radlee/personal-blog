@@ -16,21 +16,18 @@
 </style>
 
 <div class="container">
+  
     <a href="/edit-post/<%= data._id %>" class="button edit-button">Edit Post</a>
 
+    <!-- The rest of your template -->
     <img src="<%= data.cover %>" alt="Current Image">
-
     <br />
     <h1><%= data.title %></h1>
-
     <article class="article">
         <%- data.body.replace(/<a /g, '<a class="blog-link" ') %>
     </article>
-
     <div id="disqus_thread"></div>
 </div>
-
-
 
 <script>
     (function() {
@@ -40,5 +37,3 @@
         (d.head || d.body).appendChild(s);
     })();
 </script>
-
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

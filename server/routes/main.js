@@ -50,7 +50,15 @@ router.get('/post/:id', async (req, res) => {
     try {
         let slug = req.params.id;
 
-        const data = await Post.findById({ _id: slug });
+        const data = await Post.findById({ _id: slug }).populate('author');
+        console.log("Slug -- Pop : ", data);
+
+        if (!data.author) {
+            // If author is not populated, handle it accordingly
+            console.log('Author not found for post:', slug);
+            // You may redirect or render an error page
+            return res.status(404).send('Post not found');
+        }
 
         const locals = {
             title: data.title,
@@ -58,15 +66,17 @@ router.get('/post/:id', async (req, res) => {
             user: res.locals.user, // Use user data from locals,
         }
 
-        res.render('post', { 
+        res.render('post', {
             locals,
             data,
             currentRoute: `/post/${slug}`,
         });
     } catch (error) {
         console.log(error);
+        res.status(500).send('Internal Server Error');
     }
 });
+
 
 router.post('/search', async (req, res) => {
     try {
