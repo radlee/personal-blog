@@ -49,9 +49,7 @@
                   <div class="date-author">
                     <div class="centered-info">
                       <p class="date">
-                        <a href="/post/<%= post._id %>">
-                          <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
-                        </a>
+                        <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
                       </p>
                       <p class="author">
                         <span class="authorspan">@<%= post.author.username %></span>

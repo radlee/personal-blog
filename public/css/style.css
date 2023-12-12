@@ -105,6 +105,7 @@ textarea {
 .btn-delete {
   padding: 10px 16px;
   background-color: var(--red) !important;
+  color: white !important;
 }
 
 
