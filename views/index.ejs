@@ -1,82 +1,102 @@
 <style>
 
-.container {
-  max-width: 982px !important;
-  margin: 0 auto !important;
-  padding: 0 10px !important;
-}
-.author-container {
-  text-align: center;
-}
-
-</style>
-<div class="author author-container">
- 
+  .container {
+    max-width: 982px !important;
+    margin: 0 auto !important;
+    padding: 0 10px !important;
+  }
+  .author-container {
+    text-align: center;
+  }
+  
+  /* Add styles for the button */
+  .articles__button {
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  
+  .articles__button:hover {
+    color: red;
+    border-color: red;
+  }
+  
+  .articles__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  </style>
+  
+  <div class="author author-container">
     <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">
       <h1 class="author_heading"><span id="red">rad</span>blok</h1>
     </a>
     <p class="author__body">Online Platform for Publishing Written Content</p>
-</div>
-
-<div class="flash-alert">
-  <% if ( messages.success ) { %>
-    <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
-  <% } %>
-  <% if ( messages.error ) { %>
-    <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
-  <% } %>
-</div>
-
-    <section class="articles container">
+  </div>
+  
+  <div class="flash-alert">
+    <% if ( messages.success ) { %>
+      <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
+    <% } %>
+    <% if ( messages.error ) { %>
+      <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
+    <% } %>
+  </div>
+  
+  <section class="articles container">
     <hr />
-    <h3 class="articles__heading"><span class="latestspan" >Latest Posts</span></h3>
+    <h3 class="articles__heading">
+      <span class="latestspan">Latest Posts</span>
+  
+      <!-- Add the button here -->
+      <button class="articles__button"><a href="/add-post">Add Article</a></button>
+    </h3>
     <hr />
+  
     <% if (data != '') { %>
-
-        <% data.forEach((post, index) => { %>
-          <article class="article-border" <%= index %>>
-            <a href="/post/<%= post._id %>" class="blog-link">
-              <br />
-              <div class="article-wrapper">
-                <figure class="image-container">
-
-                  <img class="img-thumbnail" src="<%= post.cover %>" alt="" />
-
-                </figure>
-                <div class="article-body">
-                  <h2 class="post-title"><%= post.title %></h2>
-                  <hr />
-                  <div class="date-author">
-                    <div class="centered-info">
-                      <p class="date">
-                        <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
-                      </p>
-                      <p class="author">
-                        <span class="authorspan">@<%= post.author.username %></span>
-                      </p>
-                    </div>
+      <% data.forEach((post, index) => { %>
+        <article class="article-border" <%= index %>>
+          <a href="/post/<%= post._id %>" class="blog-link">
+            <br />
+            <div class="article-wrapper">
+              <figure class="image-container">
+                <img class="img-thumbnail" src="<%= post.cover %>" alt="" />
+              </figure>
+              <div class="article-body">
+                <h2 class="post-title"><%= post.title %></h2>
+                <hr />
+                <div class="date-author">
+                  <div class="centered-info">
+                    <p class="date">
+                      <%= moment(post.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
+                    </p>
+                    <p class="author">
+                      <span class="authorspan">@<%= post.author.username %></span>
+                    </p>
                   </div>
-                  
                 </div>
               </div>
-            </a>
-          </article>
-        <% }) %>
-
-   <% } else { %>
-            <h1>No Posts found in the DB</h1>
-        <% } %>
-            
-
-
-
-
+            </div>
+          </a>
+        </article>
+      <% }) %>
+    <% } else { %>
+      <h1>No Posts found in the DB</h1>
+    <% } %>
+  
     <% if ( nextPage !== null ) { %> 
-        <a href='/?page=<%= nextPage %>' class='pagination'>&lt; Older</a>
+      <a href='/?page=<%= nextPage %>' class='pagination'>&lt; Older</a>
     <% } %>
-
+  
     <% if (current > 1) { %>
-        <a href="/?page=<%= current - 1 %>" class="pagination pagination-right">Newer &gt;</a>
+      <a href="/?page=<%= current - 1 %>" class="pagination pagination-right">Newer &gt;</a>
     <% } %>
-
-</section>
+  </section>
+  

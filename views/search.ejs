@@ -1,8 +1,19 @@
- <div class="author">
-    <h1 class="author__heading">Search Results</h1>
- </div>
+<style>
+    .container {
+  max-width: 982px !important;
+  margin: 0 auto !important;
+  padding: 0 10px !important;
+}
+</style> 
 
- <section class="articles">
+
+ <section class="articles container">
+
+    <div class="author">
+        <h1 class="author__heading">Search Results</h1>
+     </div>
+
+     
     <ul class="article-ul">
 
         <% data.forEach(post => { %>

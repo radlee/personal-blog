@@ -51,8 +51,7 @@ router.get('/post/:id', async (req, res) => {
         let slug = req.params.id;
 
         const data = await Post.findById({ _id: slug }).populate('author');
-        console.log("Slug -- Pop : ", data);
-
+    
         if (!data.author) {
             // If author is not populated, handle it accordingly
             console.log('Author not found for post:', slug);

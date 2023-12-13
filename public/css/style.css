@@ -242,6 +242,12 @@ nav {
   color: #ff0000 !important;
 }
 
+.searchBtn {
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 
 /* Home Article List */
 .articles__heading {
