@@ -92,20 +92,19 @@ textarea {
   margin-bottom: 1rem;
 }
 
-.btn {
-  background-color: var(--black);
-  border: none;
-  color: white; 
-  padding: 16px 32px;
-  text-decoration: none;
-  margin: 4px 2px; 
-  cursor: pointer;
-}
-
 .btn-delete {
   padding: 10px 16px;
+  cursor: pointer;
+  border: 1px solid red;
   background-color: var(--red) !important;
   color: white !important;
+}
+
+.btn-delete:hover {
+  padding: 10px 16px;
+  border: 1px solid rgb(193, 0, 0) !important;
+  background-color: var(--white) !important;
+  color: black !important;
 }
 
 
@@ -191,10 +190,6 @@ nav {
   font-size: 1rem;
   font-weight: 600;
   color: var(--black);
-}
-
-.header__button button:hover {
-  border: 2px solid var(--black);
 }
 
 /* Header -> Navigation */
@@ -465,9 +460,6 @@ nav {
 /* Cards */
 
 
-
-
-
 /* Base styles for larger screens */
 .article-wrapper {
   display: grid;
@@ -591,9 +583,28 @@ a {
   color: var(--dark-text);
 }
 
-.btn {
-  background-color: var(--dark-text);
-  color: var(--dark-background);
+.update-btn {
+  display: inline-block;
+  padding: 8px 16px; /* Adjusted size */
+  text-decoration: none;
+  color: #000000;
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 0; /* Removed rounded corners */
+  margin-top: 10px;
+  margin-bottom: 10px; /* Added margin bottom */
+}
+
+.update-btn:hover {
+  display: inline-block;
+  padding: 8px 16px; /* Adjusted size */
+  text-decoration: none;
+  color: #ff0000;
+  background-color: #ffffff;
+  border: 1px solid #000;
+  border-radius: 0; /* Removed rounded corners */
+  margin-top: 10px;
+  margin-bottom: 10px; /* Added margin bottom */
 }
 
 .banner {
