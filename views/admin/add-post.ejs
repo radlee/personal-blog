@@ -90,87 +90,96 @@
 </style>
 
 <div class="admin-title">
-    <h2>Add New Blog Post</h2>
+  <h2>Add New Blog Post</h2>
 </div>
 
 <form action="/add-post" method="POST" id="add-form" enctype="multipart/form-data">
 
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Post Title" name="title" required>
-    <br>
-    <!-- Custom-styled file input button -->
-    <div class="file-upload">
-      <label class="file-upload-btn" for="coverInput">
-        <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"></path><path d="M11.78 4.72a.749.749 0 1 1-1.06 1.06L8.75 3.811V9.5a.75.75 0 0 1-1.5 0V3.811L5.28 5.78a.749.749 0 1 1-1.06-1.06l3.25-3.25a.749.749 0 0 1 1.06 0l3.25 3.25Z"></path></svg>
-         Upload Image
-      </label>
-      <input class="file-input" type="file" name="cover" id="coverInput" accept="image/*" required>
-    </div>
+  <label for="title"><b>Title</b></label>
+  <input type="text" placeholder="Post Title" name="title" required>
+  <br>
+  
+  <!-- Custom-styled file input button -->
+  <div class="file-upload">
+    <label class="file-upload-btn" for="coverInput">
+      <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"></path><path d="M11.78 4.72a.749.749 0 1 1-1.06 1.06L8.75 3.811V9.5a.75.75 0 0 1-1.5 0V3.811L5.28 5.78a.749.749 0 1 1-1.06-1.06l3.25-3.25a.749.749 0 0 1 1.06 0l3.25 3.25Z"></path></svg>
+       Upload Image
+    </label>
+    <input class="file-input" type="file" name="cover" id="coverInput" accept="image/*" required>
+  </div>
 
-    <br />
-    
-    <div id="file-preview"></div>
+  <br />
+  
+  <!-- Image preview container -->
+  <div id="image-preview"></div>
 
-    <br />
+  <br />
 
-    <!-- Hidden input to store Quill editor content -->
-    <input type="hidden" id="quill-content" name="body" required>
+  <!-- Hidden input to store Quill editor content -->
+  <input type="hidden" id="quill-content" name="body" required>
 
-    <label for="body"><b>Content</b></label>
-    <div id="editor-container"></div>
+  <label for="body"><b>Content</b></label>
+  <div id="editor-container"></div>
 
-    <input type="submit" value="Add" class="add-btn">
+  <input type="submit" value="Add" class="add-btn">
 
 </form>
 
-<!-- Initialize Quill editor -->
+<!-- Initialize Quill editor and handle file input changes -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
 
-    var toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block', 'image', 'link'],
+  var toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block', 'image', 'link'],
 
-  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
+    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+    [{ 'direction': 'rtl' }],                         // text direction
 
-  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ 'font': [] }],
-  [{ 'align': [] }],
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'font': [] }],
+    [{ 'align': [] }],
 
-  ['clean']                                         // remove formatting button
-];
+    ['clean']                                         // remove formatting button
+  ];
 
-
-
-var quill = new Quill('#editor-container', {
-      modules: {
-        toolbar: toolbarOptions
-      },
-      placeholder: 'Compose an epic...',
-      theme: 'snow'
-    });
-
-    var form = document.querySelector('form');
-    var quillContentInput = document.getElementById('quill-content');
-    var fileInput = document.getElementById('coverInput');
-    var filePreview = document.getElementById('file-preview');
-
-    // Listen for changes in the file input
-    fileInput.addEventListener('change', function() {
-      // Display the file name in the preview element
-      filePreview.textContent = fileInput.files[0].name;
-    });
-
-    form.addEventListener('submit', function() {
-      var editorContent = document.querySelector('.ql-editor').innerHTML;
-      quillContentInput.value = editorContent;
-    });
+  var quill = new Quill('#editor-container', {
+    modules: {
+      toolbar: toolbarOptions
+    },
+    placeholder: 'Compose an epic...',
+    theme: 'snow'
   });
+
+  var form = document.querySelector('form');
+  var quillContentInput = document.getElementById('quill-content');
+  var fileInput = document.getElementById('coverInput');
+  var imagePreview = document.getElementById('image-preview');
+
+  // Listen for changes in the file input
+  fileInput.addEventListener('change', function() {
+    // Display the selected image in the preview container
+    var file = fileInput.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        imagePreview.innerHTML = '<img src="' + e.target.result + '" class="current-image" alt="Image Preview">';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      imagePreview.innerHTML = ''; // Clear the preview if no file selected
+    }
+  });
+
+  form.addEventListener('submit', function() {
+    var editorContent = document.querySelector('.ql-editor').innerHTML;
+    quillContentInput.value = editorContent;
+  });
+});
 </script>
