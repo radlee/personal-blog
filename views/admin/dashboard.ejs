@@ -39,7 +39,7 @@
                     <% if (post.author.equals(user._id)) { %>
                         <form id="deleteForm_<%= post._id %>" action="/delete-post/<%= post._id %>?_method=DELETE" method="post">
                             <!-- Add a class to the submit button to target it in JavaScript -->
-                            <input type="submit" value="Delete" class="btn-delete btn delete-btn">
+                            <input type="submit" value="Delete" class="btn-delete delete-btn">
                         </form>
                     <% } %>
                 </td>

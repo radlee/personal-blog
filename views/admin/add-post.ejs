@@ -6,6 +6,87 @@
 .ql-font-roboto {
   font-family: 'Poppins';
 }
+
+  /* Style for the custom file input button */
+  .file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .file-upload-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 1px solid red;
+    cursor: pointer;
+  }
+
+  .file-upload-btn:hover {
+    display: inline-block;
+    padding: 8px 16px;
+    color: #007bff;
+    background-color: #ffffff;
+    border: 1px solid #007bff !important;
+    cursor: pointer;
+  }
+
+  .file-input {
+    display: none;
+  }
+
+  .file-upload-icon {
+    margin-bottom: 8px;
+    font-size: 24px;
+  }
+
+  .current-image {
+    max-width: 100%;
+    margin-top: 10px;
+  }
+
+  .form-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.file-upload-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  border-radius: 1px solid red;
+  cursor: pointer;
+}
+
+.file-upload-btn:hover {
+  background-color: #ffffff;
+  color: #007bff;
+  border: 1px solid #007bff !important;
+}
+
+/* Adjust the fill color and hover styles for the upload icon */
+.upload-icon {
+  fill: white; /* Set the fill color to white */
+}
+
+.file-upload-btn:hover .upload-icon {
+  fill: #007bff; /* Set the fill color to blue on hover */
+}
+
+.upload-icon:hover {
+  fill: rgb(0, 102, 254); /* Set the fill color to white */
+}
+
 </style>
 
 <div class="admin-title">
@@ -16,10 +97,16 @@
 
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Post Title" name="title" required>
+    <br>
+    <!-- Custom-styled file input button -->
+    <div class="file-upload">
+      <label class="file-upload-btn" for="coverInput">
+        <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"></path><path d="M11.78 4.72a.749.749 0 1 1-1.06 1.06L8.75 3.811V9.5a.75.75 0 0 1-1.5 0V3.811L5.28 5.78a.749.749 0 1 1-1.06-1.06l3.25-3.25a.749.749 0 0 1 1.06 0l3.25 3.25Z"></path></svg>
+         Upload Image
+      </label>
+      <input class="file-input" type="file" name="cover" id="coverInput" accept="image/*" required>
+    </div>
 
-    <label for="title"><b>Upload Cover Image</b></label>
-    <br />
-    <input class="form-control form-control-lg" type="file" name="cover" required>
     <br />
 
     <!-- Hidden input to store Quill editor content -->
@@ -28,7 +115,7 @@
     <label for="body"><b>Content</b></label>
     <div id="editor-container"></div>
 
-    <input type="submit" value="Add" class="btn">
+    <input type="submit" value="Add" class="add-btn">
 
 </form>
 
