@@ -108,6 +108,10 @@
     </div>
 
     <br />
+    
+    <div id="file-preview"></div>
+
+    <br />
 
     <!-- Hidden input to store Quill editor content -->
     <input type="hidden" id="quill-content" name="body" required>
@@ -145,16 +149,24 @@
 
 
 
-    var quill = new Quill('#editor-container', {
+var quill = new Quill('#editor-container', {
       modules: {
         toolbar: toolbarOptions
       },
       placeholder: 'Compose an epic...',
-      theme: 'snow'  // or 'bubble'
+      theme: 'snow'
     });
 
     var form = document.querySelector('form');
     var quillContentInput = document.getElementById('quill-content');
+    var fileInput = document.getElementById('coverInput');
+    var filePreview = document.getElementById('file-preview');
+
+    // Listen for changes in the file input
+    fileInput.addEventListener('change', function() {
+      // Display the file name in the preview element
+      filePreview.textContent = fileInput.files[0].name;
+    });
 
     form.addEventListener('submit', function() {
       var editorContent = document.querySelector('.ql-editor').innerHTML;
@@ -162,25 +174,3 @@
     });
   });
 </script>
-
-<!-- <script>
-  ClassicEditor
-      .create( document.querySelector( '#editor' ), {
-        ckfinder: {
-        // CKFinder configuration options
-        uploadUrl: '/upload', // Set the URL to your Express.js route
-        // Enable the XMLHttpRequest.withCredentials property.
-        withCredentials: true,
-        
-        // Headers sent along with the XMLHttpRequest to the upload server.
-        headers: {
-            'X-CSRF-TOKEN': 'CSFR-Token',
-            Authorization: 'Bearer <JSON Web Token>'
-        }
-
-      }
-      } )
-      .catch( error => {
-          console.error( error );
-      } );
-</script> -->

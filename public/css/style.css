@@ -248,6 +248,10 @@ nav {
   border-radius: 5px;
 }
 
+#file-preview {
+  text-align: center;
+}
+
 .add-btn {
   display: inline-block;
   padding: 8px 16px; /* Adjusted size */
