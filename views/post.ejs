@@ -25,16 +25,46 @@
         margin-top: 10px;
         margin-bottom: 10px; /* Added margin bottom */
     }
+
+    .post-author {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .authorspan {
+        order: 1; /* To place the username on the left */
+    }
+
+    .date {
+        order: 2; /* To place the date on the right */
+    }
+
+    
 </style>
 
 <div class="container">
   
     <a href="/edit-post/<%= data._id %>" class="button edit-button">Edit Post</a>
 
+   
     <!-- The rest of your template -->
     <img src="<%= data.cover %>" alt="Current Image">
     <br />
     <h1><%= data.title %></h1>
+
+    <div class="post-author">
+
+        <span class="authorspan">@<%= data.author.username %></span>
+
+        <p class="date">
+            <%= moment(data.createdAt).format('Do MMMM YYYY - HH:mm:ss') %>
+        </p>
+
+    </div>
+    
+
+
     <article class="article">
         <%- data.body.replace(/<a /g, '<a class="blog-link" ') %>
     </article>
