@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var toolbarOptions = [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-      ['blockquote', 'code-block', 'image', 'link'],
+      ['blockquote', 'code-block', 'image', 'video', 'link'],
   
       [{ 'header': 1 }, { 'header': 2 }],               // custom button values
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -23,9 +23,14 @@ document.addEventListener("DOMContentLoaded", function() {
     new Quill('#editor-container', {
       modules: {
         toolbar: toolbarOptions,
+        imageDrop: true,
         imageResize: {
-            displaySize: true
-          }
+          displayStyles: {
+            backgroundColor: 'black',
+            border: 'none',
+            color: 'white'
+          },
+        }
       },
       placeholder: 'Compose an epic...',
       theme: 'snow'
