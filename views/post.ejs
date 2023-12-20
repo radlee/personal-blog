@@ -45,8 +45,9 @@
 
 <div class="container">
   
-    <a href="/edit-post/<%= data._id %>" class="button edit-button">Edit Post</a>
+    <div class="edit-button-spacing"><button class="articles__button"><a href="/edit-post/<%= data._id %>">Edit Post</a></button></div>
 
+    <br>
    
     <!-- The rest of your template -->
     <img src="<%= data.cover %>" alt="Current Image">

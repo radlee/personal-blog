@@ -44,7 +44,7 @@
   </style>
   
   <footer class="footer">
-    &copy; <%= new Date().getFullYear();  %> <span id="red">rad</span>Blok
+    &copy; <%= new Date().getFullYear(); %> <span id="red">rad</span>Blok
   </footer>
   
   <script>
@@ -75,6 +75,8 @@
   
       // Set the toggle button state
       darkModeToggle.checked = enableDarkMode;
+      // Toggle a class on the body to apply Dark Mode styles
+      body.classList.toggle('dark-mode', enableDarkMode);
     }
   </script>
   
