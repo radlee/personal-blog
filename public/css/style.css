@@ -308,6 +308,18 @@ nav {
   font-size: 13px;
 }
 
+/* Dark Mode Styles */
+body.dark-mode .authorspan {
+  color: #ff0909; /* Change text color to black in Dark Mode */
+  font-weight: bolder;
+  background-color: #ffffff; /* Change background color to white in Dark Mode */
+}
+
+body.dark-mode .authorspan:hover {
+  color: #ffffff; /* Change hover text color in Dark Mode */
+  background-color: #ff0909; /* Change hover background color in Dark Mode */
+}
+
 .latestspan {
   border-left: 6px solid red;
   color: #E4E4E4;
@@ -321,16 +333,17 @@ body.dark-mode .latestspan {
   color: #000000; /* Change text color to black in Dark Mode */
 }
 
-/* Keep the red border */
 .latestspan {
   border-left: 6px solid red;
+  color: #E4E4E4;
+  padding: 5px;
+  background-color: #000000;
 }
 
-/* Add these styles for Dark Mode */
 body.dark-mode .latestspan {
+  background-color: #ffffff; /* Change background color to white in Dark Mode */
+  color: #000000; /* Change text color to black in Dark Mode */
   border-left: 6px solid red;
-  background-color: #000000;
-  color: #ffffff;
 }
 
 body.dark-mode .latestspan:hover {
