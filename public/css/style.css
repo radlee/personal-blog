@@ -294,6 +294,22 @@ nav {
   margin-bottom: 10px; /* Added margin bottom */
 }
 
+#navbarcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Add this style to position the authorspan to the right */
+.authorspan {
+  margin-left: auto;
+  padding: 5px;
+  font-size: 13px;
+  color: white;
+  background-color: #ff0909;
+}
+
+
 
 /* Home Article List */
 .articles__heading {

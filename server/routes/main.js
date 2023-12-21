@@ -1,48 +1,48 @@
 const express = require('express');
 const router = express.Router();
+const cookieParser = require('cookie-parser');
+const authMiddleware = require('../middlewares/authMiddleware');
 const Post = require('../models/Post');
-
+const app = express();
+app.use(cookieParser());
+router.use(authMiddleware);
 
 router.get('/active-kiosks', (req, res) => {
-    res.render('active-kiosks', { currentRoute: '/active-kiosks'});
+    res.render('active-kiosks', { currentRoute: '/active-kiosks', user: res.locals.user });
 });
 
-
 router.get('/about', (req, res) => {
-    res.render('about', { currentRoute: '/about'});
+    res.render('about', { currentRoute: '/about', user: res.locals.user });
 });
 
 router.get('/', async (req, res) => {
     try {
-        const locals = {
-            title: 'radBlok',
-            description: 'Bloggers Republic',
-            user: res.locals.user, // Use user data from locals,
-        }
-
         let perPage = 10;
         let page = req.query.page || 1;
 
-        // Use populate to retrieve posts with associated author information
-        const data = await Post.find().sort({ createdAt: -1 })
+        let data = await Post.find().sort({ createdAt: -1 })
             .skip(perPage * page - perPage)
             .limit(perPage)
-            .populate('author') 
+            .populate('author')
             .exec();
 
         const count = await Post.countDocuments();
         const nextPage = parseInt(page) + 1;
         const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
+        // Pass user information directly to the template
         res.render('index', {
-            locals,
-            data,
+            title: 'radBlok',
+            description: 'Bloggers Republic',
+            user: res.locals.user,
+            data: data || [], // Ensure data is always defined (even if it's an empty array)
             current: page,
             nextPage: hasNextPage ? nextPage : null,
-            currentRoute: '/'
+            currentRoute: '/',
         });
     } catch (error) {
         console.log(error);
+        res.status(500).send('Internal Server Error');
     }
 });
 
@@ -51,22 +51,17 @@ router.get('/post/:id', async (req, res) => {
         let slug = req.params.id;
 
         const data = await Post.findById({ _id: slug }).populate('author');
-    
+
         if (!data.author) {
-            // If author is not populated, handle it accordingly
             console.log('Author not found for post:', slug);
-            // You may redirect or render an error page
             return res.status(404).send('Post not found');
         }
 
-        const locals = {
+        // Pass user information directly to the template
+        res.render('post', {
             title: data.title,
             description: 'Online Platform for publishing written content.',
-            user: res.locals.user, // Use user data from locals,
-        }
-
-        res.render('post', {
-            locals,
+            user: res.locals.user,
             data,
             currentRoute: `/post/${slug}`,
         });
@@ -76,32 +71,19 @@ router.get('/post/:id', async (req, res) => {
     }
 });
 
-
 router.post('/search', async (req, res) => {
     try {
-        const locals = {
+        // Pass user information directly to the template
+        res.render('search', {
             title: 'radBlok Search',
             description: "Try and search something..",
-            user: res.locals.user, // Use user data from locals,
-        }
-
-        let searchTerm = req.body.searchTerm;
-        const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
-
-        const data = await Post.find({
-            $or: [
-                { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }},
-                { body: { $regex: new RegExp(searchNoSpecialChar, 'i') } }
-            ]
-        })
-
-        res.render("search", {
+            user: res.locals.user,
             data,
-            locals,
-            currentRoute: '/'
+            currentRoute: '/',
         });
     } catch (error) {
         console.log(error);
+        res.status(500).send('Internal Server Error');
     }
 });
 

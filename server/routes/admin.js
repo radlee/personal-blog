@@ -9,6 +9,8 @@ const jwtSecret = process.env.JWT_SECRET;
 const cloudinary = require('../utils/cloudinary')
 const upload = require('../utils/multer');
 
+const authMiddleware = require('../middlewares/authMiddleware');
+
 
 router.get('/management', async (req, res) => {
   try {
@@ -24,31 +26,7 @@ router.get('/management', async (req, res) => {
   }
 });
 
-const authMiddleware = async (req, res, next) => {
-  try {
-    const token = req.cookies.token;
 
-    if (!token) {
-      req.flash('error', 'Unauthorized. Please Login or Register');
-      return res.redirect('/admin');
-    }
-
-    const decoded = jwt.verify(token, jwtSecret);
-    const user = await User.findById(decoded.userId).select('-password');
-
-    if (!user) {
-      req.flash('error', 'Unauthorized. Please Login or Register');
-      return res.redirect('/admin');
-    }
-
-    res.locals.user = user; // Make user data available in locals
-    next();
-  } catch (error) {
-    console.log('Authentication error:', error);
-    req.flash('error', 'Unauthorized. Please Login or Register');
-    return res.redirect('/admin');
-  }
-};
 
 
 router.get('/register', async (req, res) => {
@@ -116,11 +94,14 @@ router.get('/admin', async (req, res) => {
             user: res.locals.user,
         };
 
+        // Populate user data consistently
+        const populatedUser = await User.findById(res.locals.user._id).select('-password');
+
         // Sort posts by createdAt in descending order (most recent first)
-        const data = await Post.find().sort({ createdAt: -1 });
+        const data = await Post.find({ author: res.locals.user._id }).sort({ createdAt: -1 });
 
         res.render('admin/dashboard', {
-            locals,
+            locals: { ...locals, user: populatedUser },
             data,
             layout: adminLayout,
         });
@@ -128,6 +109,7 @@ router.get('/admin', async (req, res) => {
         console.log(error);
     }
 });
+
 
   
 
