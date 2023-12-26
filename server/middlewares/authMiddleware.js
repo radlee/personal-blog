@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const jwtSecret = process.env.JWT_SECRET;
 
-const publicRoutes = ['/admin', '/']; // Add other public routes as needed
+const publicRoutes = ['/admin', '/main']; // Add other public routes as needed
 
 const authMiddleware = async (req, res, next) => {
     try {
@@ -22,17 +22,17 @@ const authMiddleware = async (req, res, next) => {
         try {
             const decoded = jwt.verify(token, jwtSecret);
             const user = await User.findById(decoded.userId).select('-password');
-
+            console.log('-------------------Decoded User:', user);
             if (!user) {
                 req.flash('error', 'Unauthorized. Please Login or Register');
                 return res.redirect('/admin');
             }
 
-            res.locals.user = user;
-            console.log('User set in locals:', user); // Add this line for debugging
+            res.locals.user = user; // Set user in res.locals
+            console.log('=======================User :', user);
+            console.log('=======================res.locals.user :', res.locals.user);
             next();
         } catch (error) {
-            // Token verification failed
             console.log('Token verification error:', error);
             req.flash('error', 'Unauthorized. Please Login or Register');
             return res.redirect('/admin');

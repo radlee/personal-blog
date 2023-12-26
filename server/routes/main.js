@@ -1,3 +1,4 @@
+// main.js
 const express = require('express');
 const router = express.Router();
 const cookieParser = require('cookie-parser');
@@ -16,7 +17,16 @@ router.get('/about', (req, res) => {
 });
 
 router.get('/', async (req, res) => {
+    
     try {
+        const locals = {
+            title: 'Dashboard',
+            description: 'radBlok',
+            user: res.locals.user,
+        };
+
+        console.log("main.js:: Locals -- ", locals);
+
         let perPage = 10;
         let page = req.query.page || 1;
 
@@ -30,16 +40,17 @@ router.get('/', async (req, res) => {
         const nextPage = parseInt(page) + 1;
         const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
-        // Pass user information directly to the template
-        res.render('index', {
+        const viewData = {
+            currentRoute: '/',
+            user: res.locals.user,
             title: 'radBlok',
             description: 'Bloggers Republic',
-            user: res.locals.user,
-            data: data || [], // Ensure data is always defined (even if it's an empty array)
+            data: data || [],
             current: page,
             nextPage: hasNextPage ? nextPage : null,
-            currentRoute: '/',
-        });
+        };
+
+        res.render('index', viewData);
     } catch (error) {
         console.log(error);
         res.status(500).send('Internal Server Error');
@@ -57,7 +68,6 @@ router.get('/post/:id', async (req, res) => {
             return res.status(404).send('Post not found');
         }
 
-        // Pass user information directly to the template
         res.render('post', {
             title: data.title,
             description: 'Online Platform for publishing written content.',
@@ -73,7 +83,6 @@ router.get('/post/:id', async (req, res) => {
 
 router.post('/search', async (req, res) => {
     try {
-        // Pass user information directly to the template
         res.render('search', {
             title: 'radBlok Search',
             description: "Try and search something..",

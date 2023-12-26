@@ -12,6 +12,8 @@ const path = require('path');
 const flash = require('express-flash');
 const mw = require('./server/middlewares/middleware');
 
+const authMiddleware = require('./server/middlewares/authMiddleware');
+
 // Import other required files and models
 const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers');
@@ -61,6 +63,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(flash());
 
 // Define your routes
+app.use(authMiddleware);
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
 

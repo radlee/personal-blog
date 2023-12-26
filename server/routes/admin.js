@@ -11,7 +11,7 @@ const upload = require('../utils/multer');
 
 const authMiddleware = require('../middlewares/authMiddleware');
 
-
+console.log("------ Auth Middles: ", authMiddleware)
 router.get('/management', async (req, res) => {
   try {
     const locals = {
