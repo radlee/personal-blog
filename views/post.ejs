@@ -5,25 +5,25 @@
 
     .button.edit-button {
         display: inline-block;
-        padding: 8px 16px; /* Adjusted size */
+        padding: 8px 16px;
         text-decoration: none;
         color: #000;
         border: 1px solid #000;
-        border-radius: 0; /* Removed rounded corners */
+        border-radius: 0;
         margin-top: 10px;
-        margin-bottom: 10px; /* Added margin bottom */
+        margin-bottom: 10px;
     }
 
     .button.edit-button:hover {
         display: inline-block;
-        padding: 8px 16px; /* Adjusted size */
+        padding: 8px 16px;
         text-decoration: none;
         color: #f30000;
         border: 1px solid #f30000;
         background-color: white;
-        border-radius: 0; /* Removed rounded corners */
+        border-radius: 0;
         margin-top: 10px;
-        margin-bottom: 10px; /* Added margin bottom */
+        margin-bottom: 10px;
     }
 
     .post-author {
@@ -33,19 +33,19 @@
     }
 
     .authorspan {
-        order: 1; /* To place the username on the left */
+        float: left; /* Float the username to the left */
     }
 
     .date {
-        order: 2; /* To place the date on the right */
+        float: right; /* Float the date to the right */
     }
-
-    
 </style>
 
 <div class="container">
   
-    <div class="edit-button-spacing"><button class="articles__button"><a href="/edit-post/<%= data._id %>">Edit Post</a></button></div>
+    <div class="edit-button-spacing">
+        <button class="articles__button"><a href="/edit-post/<%= data._id %>">Edit Post</a></button>
+    </div>
 
     <br>
    
@@ -64,11 +64,10 @@
 
     </div>
     
-
-
     <article class="article">
         <%- data.body.replace(/<a /g, '<a class="blog-link" ') %>
     </article>
+    
     <div id="disqus_thread"></div>
 </div>
 

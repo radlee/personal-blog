@@ -300,14 +300,6 @@ nav {
   align-items: center;
 }
 
-/* Add this style to position the authorspan to the right */
-.authorspan {
-  margin-left: auto;
-  padding: 5px;
-  font-size: 13px;
-  color: white;
-  background-color: #ff0909;
-}
 
 
 
