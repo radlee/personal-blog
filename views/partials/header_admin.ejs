@@ -6,7 +6,6 @@
 
     <nav class="header__nav">
         <ul>
-            <li><a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Blogs</a></li>
       <li><a href="/dashboard" class="<%= isActiveRoute('/dashboard', currentRoute) %>">Dashboard</a></li>
             <!-- Toggle button for dark mode -->
             <% if (user) { %>
@@ -18,14 +17,9 @@
                 <li><a href="/register">Register</a></li>
               <% } %>
 
-    <div class="toggle-container">
-        <label class="switch">
-            <input type="checkbox" id="darkModeToggle">
-            <span class="slider"></span>
-        </label>
-        <span class="toggle-label"></span>
-    </div>
+    
 
+    <span class="authorspan">@<%= locals.user ? locals.user.username : 'No User Data' %></span>
         </ul>
     </nav>
     <div class="header__button">
@@ -38,7 +32,15 @@
             
         </button>
     </div>
-    <span class="authorspan">@<%= locals.user ? locals.user.username : 'No User Data' %></span>
+    
 
     
 </header>
+
+<div class="toggle-container">
+    <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider"></span>
+    </label>
+    <span class="toggle-label"></span>
+</div>

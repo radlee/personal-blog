@@ -25,8 +25,6 @@ router.get('/', async (req, res) => {
             user: res.locals.user,
         };
 
-        console.log("main.js:: Locals -- ", locals);
-
         let perPage = 10;
         let page = req.query.page || 1;
 

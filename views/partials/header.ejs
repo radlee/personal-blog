@@ -103,6 +103,11 @@
 </style>
 <br />
 <nav>
+  <label class="switch">
+    <input type="checkbox" id="darkModeToggle">
+    <span class="slider"></span>
+</label>
+<span class="toggle-label"></span>
   <div id="navbarcontainer">
     <button class="icon" onclick="toggleMenu()">
       <i class="fa fa-bars fa-2x"></i>
@@ -112,12 +117,6 @@
     <ul class="header-ul">
       <li><a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Blogs</a></li>
       <li><a href="/dashboard" class="<%= isActiveRoute('/dashboard', currentRoute) %>">Dashboard</a></li>
-
-  <label class="switch">
-      <input type="checkbox" id="darkModeToggle">
-      <span class="slider"></span>
-  </label>
-  <span class="toggle-label"></span>
 
   <a class="searchBtn" aria-expanded="false">
     Search
@@ -131,7 +130,7 @@
   
 
   </ul>
-  <span class="authorspan">@<%= locals.user ? locals.user.username : 'No User Data' %></span>
+  <span class="authorspan logged">@<%= locals.user ? locals.user.username : 'No User Data' %></span>
 </nav>
   </div>
 </nav>

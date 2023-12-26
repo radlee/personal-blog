@@ -22,15 +22,14 @@ const authMiddleware = async (req, res, next) => {
         try {
             const decoded = jwt.verify(token, jwtSecret);
             const user = await User.findById(decoded.userId).select('-password');
-            console.log('-------------------Decoded User:', user);
+            
             if (!user) {
                 req.flash('error', 'Unauthorized. Please Login or Register');
                 return res.redirect('/admin');
             }
 
             res.locals.user = user; // Set user in res.locals
-            console.log('=======================User :', user);
-            console.log('=======================res.locals.user :', res.locals.user);
+    
             next();
         } catch (error) {
             console.log('Token verification error:', error);
