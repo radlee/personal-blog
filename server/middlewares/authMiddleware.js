@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const jwtSecret = process.env.JWT_SECRET;
 
-const publicRoutes = ['/admin', '/main']; // Add other public routes as needed
+const publicRoutes = ['/admin', '/main', '/register']; // Add other public routes as needed
 
 const authMiddleware = async (req, res, next) => {
     try {
@@ -22,14 +22,14 @@ const authMiddleware = async (req, res, next) => {
         try {
             const decoded = jwt.verify(token, jwtSecret);
             const user = await User.findById(decoded.userId).select('-password');
-            
+
             if (!user) {
                 req.flash('error', 'Unauthorized. Please Login or Register');
                 return res.redirect('/admin');
             }
 
             res.locals.user = user; // Set user in res.locals
-    
+
             next();
         } catch (error) {
             console.log('Token verification error:', error);
