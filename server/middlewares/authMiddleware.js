@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const jwtSecret = process.env.JWT_SECRET;
 
-const publicRoutes = ['/admin', '/main', '/register']; // Add other public routes as needed
+const publicRoutes = ['/admin', '/main', '/register', '/', /^\/post\/\w+$/]; // Add other public routes as needed
 
 const authMiddleware = async (req, res, next) => {
     try {
         const token = req.cookies.token;
 
         // Skip authentication for public routes
-        if (publicRoutes.includes(req.path)) {
+        if (publicRoutes.some(route => (typeof route === 'string' && route === req.path) || (typeof route === 'object' && route.test(req.path)))) {
             return next();
         }
 
