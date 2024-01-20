@@ -1,87 +1,86 @@
 <style>
-    /* Style for the dark mode toggle */
-    #darkModeToggleLabel {
-      position: relative;
-      display: inline-block;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-  
-    #darkModeToggle {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-    }
-  
-    #darkModeToggleIndicator {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 30px; /* Reduced size */
-      height: 15px; /* Reduced size */
-      border-radius: 15px; /* Round corners */
-      transition: background-color 0.3s ease; /* Smoother transition for background color */
-    }
-  
-    #darkModeToggle:checked + #darkModeToggleIndicator {
-      background-color: #333; /* Background color for the indicator when dark mode is enabled */
-    }
-  
-    #darkModeToggleHandle {
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 12px; /* Reduced size */
-      height: 12px; /* Reduced size */
-      background-color: #fff; /* Handle color */
-      border-radius: 50%; /* Circle shape */
-      transition: transform 0.3s ease; /* Smoother transition for handle movement */
-    }
-  
-    #darkModeToggle:checked + #darkModeToggleIndicator #darkModeToggleHandle {
-      transform: translateX(15px); /* Move the handle to the right when dark mode is enabled */
-    }
-  </style>
-  
-  <footer class="footer">
-    &copy;2023 - <%= new Date().getFullYear(); %> <span id="red">rad</span>Blok
-    
-  </footer>
+  /* Existing styles for dark mode toggle */
+
+  /* New styles for centering the switch and reducing its size */
+  .footer {
+    position: relative;
+    text-align: center;
+  }
+
+  .center-switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px; /* Adjust this margin as needed for spacing */
+  }
+
+  .switch {
+    display: inline-block;
+  }
+
+  #darkModeToggleLabel {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 12px; /* Adjust the font size as needed for the label */
+  }
+
+  #darkModeToggle {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  #darkModeToggleIndicator {
+    /* Existing styles for the indicator */
+  }
+
+  #darkModeToggleHandle {
+    /* Existing styles for the handle */
+  }
+</style>
+
+<footer class="footer">
+  &copy;2023 - <%= new Date().getFullYear(); %> <span id="red">rad</span>Blok
+</footer>
+
+<div class="center-switch">
   <label class="switch">
     <input type="checkbox" id="darkModeToggle">
     <span class="slider"></span>
-</label>
-<span class="toggle-label"></span>
-  <script>
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const body = document.body;
-  
-    // Ensure that darkModeToggle has a default value
-    darkModeToggle.checked = localStorage.getItem('darkMode') === 'true';
-  
-    // Set initial dark mode state
-    setDarkMode(darkModeToggle.checked);
-  
-    darkModeToggle.addEventListener('change', function () {
-      const isDarkModeEnabled = darkModeToggle.checked;
-      setDarkMode(isDarkModeEnabled);
-  
-      // Save user preference to localStorage
-      localStorage.setItem('darkMode', isDarkModeEnabled);
-    });
-  
-    function setDarkMode(enableDarkMode) {
-      const root = document.documentElement;
-  
-      // Set CSS variables for dark mode
-      root.style.setProperty('--background-color', enableDarkMode ? '#1c1c1c' : '#ffffff');
-      root.style.setProperty('--text-color', enableDarkMode ? '#ffffff' : '#1c1c1c');
-      // Add more variables as needed
-  
-      // Set the toggle button state
-      darkModeToggle.checked = enableDarkMode;
-      // Toggle a class on the body to apply Dark Mode styles
-      body.classList.toggle('dark-mode', enableDarkMode);
-    }
-  </script>
-  
+  </label>
+</div>
+
+<script>
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const body = document.body;
+
+  // Ensure that darkModeToggle has a default value
+  darkModeToggle.checked = localStorage.getItem('darkMode') === 'true';
+
+  // Set initial dark mode state
+  setDarkMode(darkModeToggle.checked);
+
+  darkModeToggle.addEventListener('change', function () {
+    const isDarkModeEnabled = darkModeToggle.checked;
+    setDarkMode(isDarkModeEnabled);
+
+    // Save user preference to localStorage
+    localStorage.setItem('darkMode', isDarkModeEnabled);
+  });
+
+  function setDarkMode(enableDarkMode) {
+    const root = document.documentElement;
+
+    // Set CSS variables for dark mode
+    root.style.setProperty('--background-color', enableDarkMode ? '#1c1c1c' : '#ffffff');
+    root.style.setProperty('--text-color', enableDarkMode ? '#ffffff' : '#1c1c1c');
+    // Add more variables as needed
+
+    // Set the toggle button state
+    darkModeToggle.checked = enableDarkMode;
+    // Toggle a class on the body to apply Dark Mode styles
+    body.classList.toggle('dark-mode', enableDarkMode);
+  }
+</script>

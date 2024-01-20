@@ -286,6 +286,7 @@ router.put('/edit-post/:id', upload.single('cover'), authMiddleware, async (req,
 });
 
 
+
     router.get('/logout', (req, res) => {
       res.clearCookie('token');
       req.flash('success', 'Logged Out Successfully');

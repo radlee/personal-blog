@@ -1,5 +1,37 @@
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const allButtons = document.querySelectorAll('.searchBtn');
+    const searchBar = document.querySelector('.searchBar');
+    const searchInput = document.getElementById('searchInput');
+    const searchClose = document.getElementById('searchClose');
+    const menuIcon = document.querySelector('.menu-icon');
+    const headerNav = document.querySelector('.header__nav');
 
+    for (const button of allButtons) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            searchBar.style.visibility = 'visible';
+            searchBar.classList.add('open');
+            this.setAttribute('aria-expanded', 'true');
+            searchInput.focus();
+        });
+    }
+
+    searchClose.addEventListener('click', function () {
+        searchBar.style.visibility = 'hidden';
+        searchBar.classList.remove('open');
+        this.setAttribute('aria-expanded', 'false');
+    });
+
+    menuIcon.addEventListener('click', function (event) {
+        event.preventDefault();
+        headerNav.classList.toggle('menu-visible');
+    });
+});
+
+  
+  </script>
 
 <header class="header">
     <a href="/" class="header__logo"><span id="red">rad</span>Blok</a>
@@ -22,19 +54,6 @@
     <span class="authorspan">@<%= locals.user ? locals.user.username : 'No User Data' %></span>
         </ul>
     </nav>
-    <div class="header__button">
-        <button class="searchBtn" aria-expanded="false">
-            Search
-            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" class="search">
-                <path d="M7.79167 13.4583C10.9213 13.4583 13.4583 10.9213 13.4583 7.79167C13.4583 4.66205 10.9213 2.125 7.79167 2.125C4.66205 2.125 2.125 4.66205 2.125 7.79167C2.125 10.9213 4.66205 13.4583 7.79167 13.4583Z" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M14.875 14.875L11.7938 11.7938" stroke="red" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            
-        </button>
-    </div>
-    
-
-    
 </header>
 
 <div class="toggle-container">
