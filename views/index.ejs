@@ -27,10 +27,10 @@
   
   <div class="flash-alert">
     <% if ( messages.success ) { %>
-      <p class="flash-success"><strong>SUCCESS!</strong> <%= messages.success %></p>
+      <p class="flash-success"><strong></strong> <%= messages.success %></p>
     <% } %>
     <% if ( messages.error ) { %>
-      <p class="flash-error"><strong>ERROR!</strong> <%= messages.error %></p>
+      <p class="flash-error"><strong></strong> <%= messages.error %></p>
     <% } %>
   </div>
   
@@ -73,6 +73,7 @@
       <% }) %>
     <% } else { %>
       <h1>No Posts found in the DB</h1>
+      <button class="articles__button"><a href="/add-post">Add Article</a></button>
     <% } %>
   
     <% if ( nextPage !== null ) { %> 

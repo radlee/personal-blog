@@ -38,7 +38,6 @@
 
     <nav class="header__nav">
         <ul>
-      <li><a href="/dashboard" class="<%= isActiveRoute('/dashboard', currentRoute) %>">Dashboard</a></li>
             <!-- Toggle button for dark mode -->
             <% if (user) { %>
                 <!-- Show the following links only if the user is logged in -->
@@ -55,11 +54,3 @@
         </ul>
     </nav>
 </header>
-
-<div class="toggle-container">
-    <label class="switch">
-        <input type="checkbox" id="darkModeToggle">
-        <span class="slider"></span>
-    </label>
-    <span class="toggle-label"></span>
-</div>

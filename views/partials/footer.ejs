@@ -1,58 +1,56 @@
 <style>
-  /* Existing styles for dark mode toggle */
+  .floating-button-div {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
 
-  /* New styles for centering the switch and reducing its size */
-  .footer {
-    position: relative;
-    text-align: center;
-  }
 
-  .center-switch {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px; /* Adjust this margin as needed for spacing */
-  }
-
-  .switch {
-    display: inline-block;
-  }
-
-  #darkModeToggleLabel {
-    position: relative;
-    display: inline-block;
-    margin-left: 10px;
-    cursor: pointer;
-    font-size: 12px; /* Adjust the font size as needed for the label */
-  }
-
-  #darkModeToggle {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-
-  #darkModeToggleIndicator {
-    /* Existing styles for the indicator */
-  }
-
-  #darkModeToggleHandle {
-    /* Existing styles for the handle */
-  }
+.fb {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+}
 </style>
 
 <footer class="footer">
   &copy;2023 - <%= new Date().getFullYear(); %> <span id="red">rad</span>Blok
 </footer>
 
-<div class="center-switch">
+<!-- <div class="center-switch">
   <label class="switch">
     <input type="checkbox" id="darkModeToggle">
     <span class="slider"></span>
   </label>
+</div> -->
+
+
+<div class="floating-button-div">
+  <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider"></span>
+  </label>
+  <span class="toggle-label"></span>
 </div>
 
+
 <script>
+  var floatingButtonContainer = document.querySelector('.floating-button-div');
+  var scrollY = window.scrollY;
+
+  window.addEventListener('scroll', function() {
+    scrollY = window.scrollY;
+    floatingButtonContainer.style.top = scrollY + window.innerHeight - 150 + 'px';
+  });
+</script>
+
+<script>
+  
   const darkModeToggle = document.getElementById('darkModeToggle');
   const body = document.body;
 
