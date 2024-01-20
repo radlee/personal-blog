@@ -2,11 +2,13 @@
 const express = require('express');
 const router = express.Router();
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose'); // Add this line
 const authMiddleware = require('../middlewares/authMiddleware');
 const Post = require('../models/Post');
 const app = express();
 app.use(cookieParser());
 router.use(authMiddleware);
+
 
 router.get('/active-kiosks', (req, res) => {
     res.render('active-kiosks', { currentRoute: '/active-kiosks', user: res.locals.user });
@@ -81,17 +83,33 @@ router.get('/post/:id', async (req, res) => {
 
 router.post('/search', async (req, res) => {
     try {
+        const searchTerm = req.body.searchTerm;
+        console.log('Search Term:', searchTerm);
+
+        const data = await Post.find({
+            $or: [
+                { title: { $regex: searchTerm, $options: 'i' } },
+                { body: { $regex: searchTerm, $options: 'i' } },
+            ],
+        }).populate('author');
+
+        console.log('Search Result:', data);
+
         res.render('search', {
             title: 'radBlok Search',
-            description: "Try and search something..",
+            description: 'Try and search something..',
             user: res.locals.user,
             data,
             currentRoute: '/',
         });
     } catch (error) {
         console.log(error);
-        res.status(500).send('Internal Server Error');
     }
 });
+
+
+
+
+
 
 module.exports = router;

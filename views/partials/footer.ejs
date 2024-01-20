@@ -44,9 +44,14 @@
   </style>
   
   <footer class="footer">
-    &copy; <%= new Date().getFullYear(); %> <span id="red">rad</span>Blok
+    &copy;2023 - <%= new Date().getFullYear(); %> <span id="red">rad</span>Blok
+    
   </footer>
-  
+  <label class="switch">
+    <input type="checkbox" id="darkModeToggle">
+    <span class="slider"></span>
+</label>
+<span class="toggle-label"></span>
   <script>
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;

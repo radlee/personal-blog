@@ -101,13 +101,44 @@
 
 
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+
+const allButtons = document.querySelectorAll('.searchBtn');
+const searchBar = document.querySelector('.searchBar');
+const searchInput = document.getElementById('searchInput');
+const searchClose = document.getElementById('searchClose');
+// 
+for (var i = 0; i < allButtons.length; i++) {
+    allButtons[i].addEventListener('click', function() {
+        searchBar.style.visibility = 'visible';
+        searchBar.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
+        searchInput.focus();
+    })
+}
+
+searchClose.addEventListener('click', function() {
+    searchBar.style.visibility = 'hidden';
+    searchBar.classList.remove('open');
+    this.setAttribute('aria-expanded', 'false');
+})
+})
+
+document.addEventListener("DOMContentLoaded", function () {
+const menuIcon = document.querySelector('.menu-icon');
+const headerNav = document.querySelector('.header__nav');
+
+menuIcon.addEventListener('click', function () {
+  headerNav.classList.toggle('menu-visible');
+});
+});
+
+</script>
 <br />
 <nav>
-  <label class="switch">
-    <input type="checkbox" id="darkModeToggle">
-    <span class="slider"></span>
-</label>
-<span class="toggle-label"></span>
+  
   <div id="navbarcontainer">
     <button class="icon" onclick="toggleMenu()">
       <i class="fa fa-bars fa-2x"></i>
@@ -130,8 +161,7 @@
   
 
   </ul>
-  <span class="authorspan logged">@<%= locals.user ? locals.user.username : 'No User Data' %></span>
+ 
 </nav>
   </div>
 </nav>
-

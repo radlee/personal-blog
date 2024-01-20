@@ -1,29 +1,36 @@
-<style>
-    .container {
-  max-width: 982px !important;
-  margin: 0 auto !important;
-  padding: 0 10px !important;
-}
-</style> 
 
 
- <section class="articles container">
-
+  
+  <section class="articles container">
     <div class="author">
         <h1 class="author__heading">Search Results</h1>
-     </div>
-
-     
+    </div>
+    
     <ul class="article-ul">
+        <% if (data.length > 0) { %>
+            <% data.forEach(post => { %>
+                <li class="article-list__item">
+                    <a href="/post/<%= post._id %>">
+                        <span><%= post.title %></span>
 
-        <% data.forEach(post => { %>
-            <li>
-                 <a href="/post/<%= post._id %>">
-                     <span><%= post.title %></span>
-                     <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
-                 </a>
-            </li>
-        <% }) %>
-           
+                        <% if (post.createdAt) { %>
+                            <span class="article-list__date">
+                                <% if (post.createdAt instanceof Date && !isNaN(post.createdAt)) { %>
+                                    <%= post.createdAt.toDateString() %>
+                                <% } else { %>
+                                    <%= 'Invalid date: ' + post.createdAt %>
+                                <% } %>
+                            </span>
+                        <% } else { %>
+                            <span class="article-list__date">No date available</span>
+                        <% } %>
+                    </a>
+                </li>
+            <% }) %>
+        <% } else { %>
+            <p>No results found</p>
+        <% } %>
     </ul>
- </section>
+  
+  
+  </section>

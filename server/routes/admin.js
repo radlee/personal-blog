@@ -86,29 +86,29 @@ router.get('/admin', async (req, res) => {
     }
   });
 
-  router.get('/dashboard', authMiddleware, async (req, res) => {
+router.get('/dashboard', authMiddleware, async (req, res) => {
     try {
+        const user = await User.findById(res.locals.user._id).select('-password');
+
         const locals = {
             title: 'Dashboard',
             description: 'radBlok',
-            user: res.locals.user,
+            user: user, // Pass the user directly to locals
         };
 
-        // Populate user data consistently
-        const populatedUser = await User.findById(res.locals.user._id).select('-password');
-
-        // Sort posts by createdAt in descending order (most recent first)
         const data = await Post.find({ author: res.locals.user._id }).sort({ createdAt: -1 });
 
         res.render('admin/dashboard', {
-            locals: { ...locals, user: populatedUser },
+            locals: locals,
             data,
             layout: adminLayout,
         });
     } catch (error) {
         console.log(error);
+        res.status(500).send('Internal Server Error');
     }
 });
+
 
 
   
