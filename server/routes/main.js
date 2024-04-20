@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
             currentRoute: '/',
             user: res.locals.user,
             title: 'radBlok',
-            description: 'Bloggers Republic',
+            description: 'Blogger\'s Republic',
             data: data || [],
             current: page,
             nextPage: hasNextPage ? nextPage : null,
@@ -70,7 +70,7 @@ router.get('/post/:id', async (req, res) => {
 
         res.render('post', {
             title: data.title,
-            description: 'Online Platform for publishing written content.',
+            description: data.title,
             user: res.locals.user,
             data,
             currentRoute: `/post/${slug}`,
