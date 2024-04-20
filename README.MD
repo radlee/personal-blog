@@ -47,7 +47,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - Friends and People I meet
 - Inspiration
 - Net Ninja Pro - Raddy for a great tutorial on creating a Node.js blog.
-
----
-
-Feel free to adjust the content or structure to better fit your project's needs. Let me know if you need further assistance!
