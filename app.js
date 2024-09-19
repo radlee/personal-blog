@@ -11,6 +11,7 @@ const moment = require('moment');
 const path = require('path');
 const flash = require('express-flash');
 const mw = require('./server/middlewares/middleware');
+const http = require('http'); // Import the HTTP module
 
 const authMiddleware = require('./server/middlewares/authMiddleware');
 
@@ -67,8 +68,9 @@ app.use(authMiddleware);
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
 
-
 // Start the server and listen on the defined port
-app.listen(PORT, () => {
+const server = http.createServer(app);
+
+server.listen(PORT, () => {
     console.log(`Server running on PORT: ${PORT}`);
 });
