@@ -1,6 +1,4 @@
-Here’s the revised version with the additional environment variables for API and security configuration:
 
----
 
 # Personal Blog
 
@@ -83,7 +81,7 @@ Follow these steps to install and run Personal Blog locally:
     ```
 
 6. **Access the application**:
-    Open your browser and navigate to [http://localhost:<your-port>](http://localhost:<your-port>) to view and use the blog.
+    Open your browser and navigate to [http://localhost:<your-port>](http://localhost:5000) to view and use the blog.
 
 ---
 
