@@ -11,6 +11,45 @@
   --border-radius: 10px;
 }
 
+/* Profile Style */
+
+/* Profile Section */
+.profile {
+  text-align: center; /* Center the profile section */
+  padding: 20px; /* Add some padding around the profile section */
+  background-color: #ffffff; /* Optional: background color for the profile section */
+  border-radius: var(--border-radius); /* Rounded corners for the profile section */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+  margin: 20px auto; /* Center the profile section horizontally with margin */
+  max-width: 800px; /* Optional: limit the maximum width */
+}
+
+/* Profile Picture */
+.profile-picture {
+  width: 150px; /* Set the width of the profile picture */
+  height: 150px; /* Set the height of the profile picture */
+  border-radius: 50%; /* Make the profile picture circular */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+  margin-bottom: 10px; /* Space between the picture and the text */
+}
+
+/* Profile Info */
+.profile-info {
+  color: var(--black); /* Text color for the profile section */
+}
+
+.profile-name {
+  font-size: var(--font-size-lg); /* Font size for the name */
+  margin: 0; /* Remove default margin */
+}
+
+.profile-bio {
+  font-size: var(--font-size-base); /* Font size for the bio */
+  margin: 10px 0 0; /* Margin above the bio */
+}
+
+
+
 @font-face {
   font-family: 'Poppins';
   src: url('../fonts/Poppins/Poppins-Regular.ttf') format('truetype');
