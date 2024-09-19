@@ -1,4 +1,4 @@
-Here's an improved version of your documentation with the added prerequisite section and a more polished structure:
+Here’s the revised version with the additional environment variables for API and security configuration:
 
 ---
 
@@ -13,6 +13,7 @@ Here's an improved version of your documentation with the added prerequisite sec
 - View blog posts without registration.
 - Comment on posts using Disqus.
 - Secure user registration and login with bcryptjs password encryption.
+- Environment variable support for APIs and MongoDB connections.
 
 ---
 
@@ -34,7 +35,13 @@ Before setting up the Personal Blog locally, ensure you have the following:
     ```bash
     git --version
     ```
-5. **Code Editor**: Choose a code editor, such as Visual Studio Code or Sublime Text.
+5. **Cloudinary Account**: If you're uploading images, create a [Cloudinary](https://cloudinary.com/) account to get the `API_KEY`, `API_SECRET`, and `CLOUD_NAME`.
+6. **JWT Secret**: Generate a strong secret key for handling JSON Web Tokens (JWT).
+7. **Git**: Install Git to clone the repository:
+    ```bash
+    git --version
+    ```
+8. **Code Editor**: Choose a code editor, such as Visual Studio Code or Sublime Text.
 
 ---
 
@@ -59,11 +66,16 @@ Follow these steps to install and run Personal Blog locally:
 
 4. **Set up environment variables**:
     - Create a `.env` file in the project root directory.
-    - Add your MongoDB connection string to the `.env` file:
+    - Add the following environment variables to the `.env` file:
       ```bash
-      MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      API_KEY=<your-cloudinary-api-key>
+      API_SECRET=<your-cloudinary-api-secret>
+      CLOUD_NAME=<your-cloudinary-cloud-name>
+      JWT_SECRET=<your-jwt-secret>
+      PORT=<your-port-number>
       ```
-    - Add any other environment variables, such as port number or session secrets.
+    - Ensure your `.env` file is correctly set up for local development.
 
 5. **Start the server**:
     ```bash
@@ -71,7 +83,7 @@ Follow these steps to install and run Personal Blog locally:
     ```
 
 6. **Access the application**:
-    Open your browser and navigate to [http://localhost:5000](http://localhost:5000) to view and use the blog.
+    Open your browser and navigate to [http://localhost:<your-port>](http://localhost:<your-port>) to view and use the blog.
 
 ---
 
@@ -87,6 +99,21 @@ Once the server is running, you'll be greeted with the landing page displaying a
 
 ---
 
+## Environment Variables
+
+Here’s a summary of all the required environment variables for the project:
+
+| **Variable**  | **Description**  |
+|---------------|------------------|
+| `MONGODB_URI` | MongoDB connection string for your database. |
+| `API_KEY`     | Your Cloudinary API key (for image uploads). |
+| `API_SECRET`  | Your Cloudinary API secret (for image uploads). |
+| `CLOUD_NAME`  | Your Cloudinary cloud name. |
+| `JWT_SECRET`  | Secret key used for signing JWTs for authentication. |
+| `PORT`        | Port number for the local server. |
+
+---
+
 ## License
 
 This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file.
@@ -97,11 +124,9 @@ This project is licensed under the MIT License. For more details, see the [LICEN
 
 Special thanks to the following for their inspiration and guidance:
 
-- **codeX**
-- **Flash**
-- **Friends and colleagues**
-- **Net Ninja Pro - Raddy** for an excellent Node.js blog tutorial.
+- **codeX** (HTML, CSS and JavaScript Intro)
+- **Flash** (Platform and resources)
+- **Friends and colleagues** (Inspiration)
+- **Net Ninja Pro - Raddy** for an excellent Node.js blog tutorial. (Blog Dev Guide and Tutorial)
 
 ---
-
-This version organizes information more clearly, adds essential prerequisites, and improves the overall flow.
