@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const jwtSecret = process.env.JWT_SECRET;
 
-const publicRoutes = ['/admin', '/main', '/register', '/', /^\/post\/\w+$/]; // Add other public routes as needed
+const publicRoutes = ['/admin', '/main', , '/about','/register', '/', /^\/post\/\w+$/]; // Add other public routes as needed
 
 const authMiddleware = async (req, res, next) => {
     try {

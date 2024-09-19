@@ -18,6 +18,10 @@
   font-style: normal;
 }
 
+.radblokmultimedia {
+  color:#126dff;
+}
+
 @font-face {
   font-family: 'Poppins';
   src: url('../fonts/Poppins/Poppins-Bold.ttf') format('truetype');
