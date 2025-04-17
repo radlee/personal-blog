@@ -10,6 +10,9 @@
   --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
   --border-radius: 10px;
 }
+body, input, textarea {
+  font-family: 'Poppins', sans-serif;
+}
 
 /* Profile Style */
 
