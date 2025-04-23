@@ -468,7 +468,8 @@ body.dark-mode .latestspan:hover {
 
 .article {
   white-space: pre-wrap;
-  background-color: #000000d1;
+  background-color: #8d8d8da6;
+  padding: 50px;
 }
 
 
