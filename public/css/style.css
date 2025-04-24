@@ -611,7 +611,7 @@ body.dark-mode .latestspan:hover {
   grid-template-columns: 1fr 1fr; /* Two columns, each taking up 50% of the container */
   grid-column-gap: 20px; /* Add some space between the image and the body */
   align-items: center; /* Align items vertically in the center */
-  background-color: #b59d0059;
+  background-color: #00223912;
 }
 
 .article-wrapper figure {
