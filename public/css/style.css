@@ -20,7 +20,7 @@ body, input, textarea {
 .profile {
   text-align: center; /* Center the profile section */
   padding: 20px; /* Add some padding around the profile section */
-  background-color: #ffffff; /* Optional: background color for the profile section */
+  background-color: #ffffff1a; /* Optional: background color for the profile section */
   border-radius: var(--border-radius); /* Rounded corners for the profile section */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
   margin: 20px auto; /* Center the profile section horizontally with margin */
@@ -468,7 +468,7 @@ body.dark-mode .latestspan:hover {
 
 .article {
   white-space: pre-wrap;
-  background-color: #8d8d8da6;
+  background-color: #ffffff47;
   padding: 50px;
 }
 
