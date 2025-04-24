@@ -4,7 +4,9 @@ const connectDB = async () => {
     try {
         mongoose.set('strictQuery', false);
         const conn = await mongoose.connect(process.env.MONGODB_URI);
-        console.log(`Database Connected Successfully: ${conn.connection.host}`);
+        console.log("|----------------------------------|");
+        console.log("| Database Connected Successfully! |");
+        console.log("|----------------------------------|");
     } catch (error) {
         console.log(error)
     }

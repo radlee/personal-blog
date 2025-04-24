@@ -1,84 +1,79 @@
 <style>
   .floating-button-div {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
 
+  .fb {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+  }
 
-.fb {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  padding: 20px;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
-}
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  body.dark-mode {
+    /* Any dark mode-specific overrides go here */
+  }
 </style>
 
 <footer class="footer">
   &copy;2023 - <%= new Date().getFullYear(); %> <span id="red">rad</span>Blok
 </footer>
 
-<!-- <div class="center-switch">
+<div class="floating-button-div">
   <label class="switch">
     <input type="checkbox" id="darkModeToggle">
     <span class="slider"></span>
   </label>
-</div> -->
-
-
-<div class="floating-button-div">
-  <label class="switch">
-      <input type="checkbox" id="darkModeToggle">
-      <span class="slider"></span>
-  </label>
   <span class="toggle-label"></span>
 </div>
 
-
+<!-- ✅ All logic now waits until DOM is ready -->
 <script>
-  var floatingButtonContainer = document.querySelector('.floating-button-div');
-  var scrollY = window.scrollY;
+  document.addEventListener('DOMContentLoaded', function () {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
 
-  window.addEventListener('scroll', function() {
-    scrollY = window.scrollY;
-    floatingButtonContainer.style.top = scrollY + window.innerHeight - 150 + 'px';
+    // Get saved preference from localStorage
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    darkModeToggle.checked = isDark;
+
+    // Apply initial mode
+    setDarkMode(isDark);
+
+    // Handle toggle changes
+    darkModeToggle.addEventListener('change', function () {
+      const isDarkModeEnabled = darkModeToggle.checked;
+      setDarkMode(isDarkModeEnabled);
+      localStorage.setItem('darkMode', isDarkModeEnabled);
+    });
+
+    function setDarkMode(enableDarkMode) {
+      const root = document.documentElement;
+
+      root.style.setProperty('--background-color', enableDarkMode ? '#1c1c1c' : '#ffffff');
+      root.style.setProperty('--text-color', enableDarkMode ? '#ffffff' : '#1c1c1c');
+
+      body.classList.toggle('dark-mode', enableDarkMode);
+
+      if (typeof $.backstretch === 'function') {
+        $.backstretch("destroy");
+        $.backstretch(enableDarkMode ? "/img/crumpled.jpg" : "/img/bg.jpg");
+      }
+    }
   });
 </script>
 
-<script>
-  
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  const body = document.body;
-
-  // Ensure that darkModeToggle has a default value
-  darkModeToggle.checked = localStorage.getItem('darkMode') === 'true';
-
-  // Set initial dark mode state
-  setDarkMode(darkModeToggle.checked);
-
-  darkModeToggle.addEventListener('change', function () {
-    const isDarkModeEnabled = darkModeToggle.checked;
-    setDarkMode(isDarkModeEnabled);
-
-    // Save user preference to localStorage
-    localStorage.setItem('darkMode', isDarkModeEnabled);
-  });
-
-  function setDarkMode(enableDarkMode) {
-    const root = document.documentElement;
-
-    // Set CSS variables for dark mode
-    root.style.setProperty('--background-color', enableDarkMode ? '#1c1c1c' : '#ffffff');
-    root.style.setProperty('--text-color', enableDarkMode ? '#ffffff' : '#1c1c1c');
-    // Add more variables as needed
-
-    // Set the toggle button state
-    darkModeToggle.checked = enableDarkMode;
-    // Toggle a class on the body to apply Dark Mode styles
-    body.classList.toggle('dark-mode', enableDarkMode);
-  }
-</script>
+<!-- jQuery & Backstretch -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>

@@ -14,6 +14,10 @@ body, input, textarea {
   font-family: 'Poppins', sans-serif;
 }
 
+#design {
+  color: #e7bd00 !important;
+}
+
 /* Profile Style */
 
 /* Profile Section */
@@ -468,7 +472,7 @@ body.dark-mode .latestspan:hover {
 
 .article {
   white-space: pre-wrap;
-  background-color: #ffffff47;
+  background-color: #00000005;
   padding: 50px;
 }
 
@@ -659,8 +663,9 @@ a:hover {
   }
 
   .author_heading {
-    font-size: 85px !important;
-  }
+    text-align: center;
+    font-size: 55px !important;
+}
   .header-ul li {
     margin: 0 !important;
     padding-left: 0px !important;
@@ -671,8 +676,6 @@ a:hover {
     margin-left: -34px;
     height: auto;
 }
-
-
 
 .article-wrapper figure {
     width: 75%;

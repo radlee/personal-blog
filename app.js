@@ -72,5 +72,6 @@ app.use('/', require('./server/routes/admin'));
 const server = http.createServer(app);
 
 server.listen(PORT, () => {
-    console.log(`Server running on PORT: ${PORT}`);
+    console.log("|----------------------------------|");
+    console.log(`| radblok running on PORT : [${PORT}] |`);
 });
