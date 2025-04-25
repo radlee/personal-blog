@@ -15,7 +15,37 @@ body, input, textarea {
 }
 
 #design {
-  color: #e7bd00 !important;
+  color: #ff2424 !important;
+}
+
+/* Animation */
+
+.wave-text span {
+  display: inline-block;
+  /* font-size: 4rem; */
+  animation: wave 2s ease-in-out infinite;
+}
+
+.wave-text span:nth-child(1) {
+  animation-delay: 0s;
+}
+.wave-text span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.wave-text span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.wave-text span:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+@keyframes wave {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-20px);
+  }
 }
 
 /* Profile Style */
@@ -24,7 +54,7 @@ body, input, textarea {
 .profile {
   text-align: center; /* Center the profile section */
   padding: 20px; /* Add some padding around the profile section */
-  background-color: #ffffff1a; /* Optional: background color for the profile section */
+  background-color: var(--background-color); /* Optional: background color for the profile section */
   border-radius: var(--border-radius); /* Rounded corners for the profile section */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
   margin: 20px auto; /* Center the profile section horizontally with margin */
@@ -42,7 +72,7 @@ body, input, textarea {
 
 /* Profile Info */
 .profile-info {
-  color: var(--black); /* Text color for the profile section */
+  color: var(--text-color);
 }
 
 .profile-name {
@@ -143,6 +173,7 @@ h3 { font-size: var(--font-size-md); }
 
 .author_heading {
   font-size: 111px !important;
+  line-height: 0.9;
 }
 
 input[type="text"],
@@ -653,7 +684,7 @@ a:hover {
 }
 
 .article-border {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid red !important;
 }
 
 /* Responsive styles for smaller screens */
@@ -664,7 +695,8 @@ a:hover {
 
   .author_heading {
     text-align: center;
-    font-size: 55px !important;
+    line-height: 1.1;
+    font-size: 50px !important;
 }
   .header-ul li {
     margin: 0 !important;
@@ -705,6 +737,10 @@ a:hover {
   --background-color: #1c1c1c;
   --text-color: #ffffff;
   /* ... other variables ... */
+}
+
+.profile_bg {
+  --background-color: #00000008;
 }
 
 body {
@@ -812,7 +848,7 @@ a, .articles__button, a.edit-button {
 }
 
 .article-body  {
-  border-color: var(--dark-border);
+  border-color: #FF0000 !important;
 }
 
 .switch {
