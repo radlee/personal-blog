@@ -70,7 +70,7 @@ router.get('/post/:id', async (req, res) => {
 
         res.render('post', {
             title: data.title,
-            description: data.title,
+            description: data.description,
             user: res.locals.user,
             data,
             currentRoute: `/post/${slug}`,
